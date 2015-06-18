@@ -1,0 +1,28 @@
+#Attachment File
+#LOCAL_FOLDER_PATH=/data/tempFile
+#File Max Size is 100MB
+FILE_MAXSIZE=104857600
+IMAGEMAGICK_PATH=C:/Program Files/ImageMagick-6.8.9-Q16
+GRAPHICMAGICK_PATH=C:/Program Files/GraphicsMagick-1.3.20-Q8
+THUMBNAIL_TASK_TIMEOUT=30
+AUDIO_SPEEXDEC_PATH=/usr/local/tomcat/tool/speexdec
+AUDIO_LAME_PATH=/usr/local/tomcat/tool/lame
+CACHE_NODE_MONITOR_INTERVAL=120
+
+#Supernote Reverse Proxy URL
+ACCOUNT_PROXY_URL=http://localhost:8080/usersns/v1/auth/check
+#SPACE_PROXY_URL=http://192.168.1.102:8080/supernote/v2/space/isOverflow
+
+#JMS config
+MQ_HOST=192.168.1.101
+MQ_PORT=5672
+MQ_QUEUE_NAME=callbackQueue
+MQ_USERNAME=supernote
+MQ_PASSWORD=lenote2014
+MQ_CACHESIZE=100
+MQ_CONCURRENT_CONSUMERS=1000
+#jms.rabbitmq.connectiontimeout=300
+
+#qiniu account
+ACCESS_KEY = "sP6dgW3Slwmd5pWGtzjWIHeKihEKR4otFs_mHi4m";
+SECRET_KEY = "0Ayw2SzAflVDyAdGE3dMsM1iKfrKM4khMw85Wgwk";

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.3.xsd">
+	<!-- first following line creates a rabbit connection factory with specified 
+		parameters -->
+	<!-- Connection Factory -->
+	<bean id="rabbitConnFactory"
+		class="org.springframework.amqp.rabbit.connection.CachingConnectionFactory">
+		<constructor-arg>
+			<value>192.168.1.101</value>
+		</constructor-arg>
+		<constructor-arg>
+			<value>5672</value>
+		</constructor-arg>
+		<property name="username" value="supernote" />
+		<property name="password" value="lenote2014" />
+		<property name="virtualHost" value="/" />
+	</bean>
+
+	<!-- Spring AMQP Template -->
+	<bean id="template" class="org.springframework.amqp.rabbit.core.RabbitTemplate">
+		<property name="connectionFactory" ref="rabbitConnFactory" />
+		<property name="routingKey" value="test.queue" />
+		<property name="queue" value="test.queue" />
+	</bean>
+
+	<!-- Spring AMQP Admin -->
+	<bean id="admin" class="org.springframework.amqp.rabbit.core.RabbitAdmin">
+		<constructor-arg ref="rabbitConnFactory" />
+	</bean>
+</beans>

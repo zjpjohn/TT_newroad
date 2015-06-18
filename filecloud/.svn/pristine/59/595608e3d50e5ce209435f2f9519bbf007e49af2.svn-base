@@ -1,0 +1,31 @@
+COS_LOGPATH=/usr/local/tomcat/logs/cosfile.log
+COS_LOGLEVEL=2
+COS_LISTENER=false
+
+#Attachment File
+FILE_MAXSIZE=104857600
+IMAGEMAGICK_PATH=/usr/bin/
+GRAPHICMAGICK_PATH=/usr/local/bin/
+THUMBNAIL_TASK_TIMEOUT=30
+
+AUDIO_SPEEXDEC_PATH=/usr/local/tomcat/tool/speexdec
+AUDIO_LAME_PATH=/usr/local/tomcat/tool/lame
+CACHE_NODE_MONITOR_INTERVAL=120
+
+#supernote
+ACCOUNT_PROXY_URL=http://localhost/account/auth/check
+SPACE_PROXY_URL=http://localhost/a/space/isOverflow
+
+#Cloud callback 
+CLOUD_CALLBACK_STATUS=true
+CLOUD_CALLBACK_URL=http://bfo.supernote.lenovomm.com/supernotefile/v2/cloud/syncCloudFile
+CLOUD_RECIFY_MONITOR_LOG_PATH=/usr/local/tomcat/cloud/cos_monitor.csv
+
+#JMS config
+MQ_HOST=172.17.120.23
+MQ_PORT=5672
+MQ_QUEUE_NAME=callbackQueue
+MQ_USERNAME=supernote
+MQ_PASSWORD=lenote2014
+MQ_CACHESIZE=100
+MQ_CONCURRENT_CONSUMERS=1000
