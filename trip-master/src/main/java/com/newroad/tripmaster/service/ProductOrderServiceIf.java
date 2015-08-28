@@ -11,7 +11,7 @@ public interface ProductOrderServiceIf {
   public ServiceResult<String> createProductOrder(ProductOrder productOrder);
 
   public ServiceResult<String> viewProductOrder(Long luckerId, Integer userRole, Long productOrderId);
-  
+
   public ServiceResult<String> viewUserProductOrder(Long userId, Long productOrderId);
 
   public ServiceResult<String> listProductOrders(Long luckerId, Integer userRole, Integer start, Integer size);
@@ -26,7 +26,7 @@ public interface ProductOrderServiceIf {
   public ServiceResult<String> updateProductOrderByUser(Long productOrderId, Long userId, Map<String, Object> updateActionMap);
 
   // System update
-  public ServiceResult<String> updatetOrderPayStatus(Long productOrderId, Long userId, Integer status, String payStatus);
+  public ServiceResult<String> updatetOrderPayStatus(Long productOrderId, Integer status, String payStatus);
 
   // User requirement
   public ServiceResult<String> updateProductOrderStatus(Long productOrderId, Integer status);

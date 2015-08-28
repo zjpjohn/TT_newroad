@@ -11,7 +11,7 @@ import com.newroad.util.apiresult.ServiceResult;
 
 public class SystemAdminService implements SystemAdminServiceIf {
 
-  private static Logger logger = LoggerFactory.getLogger(ProductDesignService.class);
+  private static Logger logger = LoggerFactory.getLogger(SystemAdminService.class);
 
   private MariaDao mariaDao;
 

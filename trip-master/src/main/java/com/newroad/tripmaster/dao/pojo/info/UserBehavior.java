@@ -5,33 +5,49 @@ import java.io.Serializable;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
+import com.newroad.tripmaster.dao.pojo.SimpleUser;
 
-@Entity(value = "userbehavior", noClassnameStored = true)
+
+@Entity(value = "userBehavior", noClassnameStored = true)
 public class UserBehavior implements Serializable{
   /**
    * 
    */
   private static final long serialVersionUID = 6591587233660621668L;
+  
   @Id
   private String behaviorId;
   
-  private String actionId;
-  
-  private Integer actiontype;
-  
-  private Integer actioncontent;
+  //1:like product 2:ignore product 3.tripProduct comment 4. hashsiteid comment
+  private Integer actionType;
   
   private String targetId;
   
+  private String actionContent;
+  
   private Long userId;
+  
+  //temp
+  private SimpleUser userInfo;
   
   private Integer status;
   
   private Long createTime;
-  
-  private Long updateTime;
 
+  private Long updateTime;
   
+  public UserBehavior(Integer actionType, String actionContent, String targetId, Long userId) {
+    super();
+    this.actionType = actionType;
+    this.actionContent = actionContent;
+    this.targetId = targetId;
+    this.userId = userId;
+  }
+
+  public UserBehavior() {
+    // TODO Auto-generated constructor stub
+  }
+
   public String getBehaviorId() {
     return behaviorId;
   }
@@ -40,28 +56,20 @@ public class UserBehavior implements Serializable{
     this.behaviorId = behaviorId;
   }
 
-  public String getActionId() {
-    return actionId;
+  public Integer getActionType() {
+    return actionType;
   }
 
-  public void setActionId(String actionId) {
-    this.actionId = actionId;
+  public void setActionType(Integer actionType) {
+    this.actionType = actionType;
   }
 
-  public Integer getActiontype() {
-    return actiontype;
+  public String getActionContent() {
+    return actionContent;
   }
 
-  public void setActiontype(Integer actiontype) {
-    this.actiontype = actiontype;
-  }
-
-  public Integer getActioncontent() {
-    return actioncontent;
-  }
-
-  public void setActioncontent(Integer actioncontent) {
-    this.actioncontent = actioncontent;
+  public void setActionContent(String actionContent) {
+    this.actionContent = actionContent;
   }
 
   public String getTargetId() {
@@ -78,6 +86,14 @@ public class UserBehavior implements Serializable{
 
   public void setUserId(Long userId) {
     this.userId = userId;
+  }
+  
+  public SimpleUser getUserInfo() {
+    return userInfo;
+  }
+
+  public void setUserInfo(SimpleUser userInfo) {
+    this.userInfo = userInfo;
   }
 
   public Integer getStatus() {
@@ -103,6 +119,5 @@ public class UserBehavior implements Serializable{
   public void setUpdateTime(Long updateTime) {
     this.updateTime = updateTime;
   }
-  
-  
+ 
 }

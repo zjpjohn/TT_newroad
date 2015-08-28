@@ -8,6 +8,8 @@ import java.util.Set;
 
 import net.sf.json.JSONObject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -19,7 +21,9 @@ import com.newroad.util.auth.TokenUtil;
 
 public class TripMasterHttpClient {
 
-  @Value("${USERSNS_AUTHTOKEN_URL}")
+  private static Logger logger = LoggerFactory.getLogger(TripMasterHttpClient.class);
+
+  @Value("${system.authcheck.url}")
   private String accountURL;
 
   private RestTemplate restTemplate;
@@ -36,7 +40,11 @@ public class TripMasterHttpClient {
     JSONObject jsonRequest = new JSONObject();
     jsonRequest.put("app", app);
 
+    logger.info("authcheck url info:" + accountURL);
     String response = performHttpRequest(accountURL, jsonRequest.toString(), headerMap);
+    if (response == null) {
+      return null;
+    }
     JSONObject jsonResponse = JSONObject.fromObject(response);
     Integer returnCode = (Integer) jsonResponse.get(ApiReturnObjectUtil.KEY_RETURN_CODE);
     if (returnCode == ReturnCode.OK.getValue()) {
@@ -57,7 +65,12 @@ public class TripMasterHttpClient {
     }
 
     HttpEntity<String> request = new HttpEntity<String>(body, headers);
-    String response = restTemplate.postForObject(url, request, String.class);
+    String response = null;
+    try {
+      response = restTemplate.postForObject(url, request, String.class);
+    } catch (Exception e) {
+      logger.error("Fail to invoke http request because of error:" + e);
+    }
     return response;
   }
 }

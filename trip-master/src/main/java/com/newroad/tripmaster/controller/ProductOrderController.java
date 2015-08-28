@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.newroad.tripmaster.constant.DataConstant;
 import com.newroad.tripmaster.constant.HttpConstant;
 import com.newroad.tripmaster.constant.JSONConvertor;
 import com.newroad.tripmaster.dao.pojo.SimpleUser;
@@ -92,23 +93,24 @@ public class ProductOrderController {
    */
   @RequestMapping(value = "/paystatus/{orderId}", method = RequestMethod.PUT, produces = HttpConstant.CONTENT_TYPE_JSON)
   public @ResponseBody
-  String updateOrderPayStatus(HttpServletRequest request, @PathVariable("orderId") Long orderId,
-      @PathVariable String apiVersion) throws Exception {
+  String updateOrderPayStatus(HttpServletRequest request, @PathVariable("orderId") Long orderId, @PathVariable String apiVersion)
+      throws Exception {
     String reqParam = StringHelper.getRequestEntityString(request);
     if (reqParam.indexOf("error") >= 0) {
       logger.error("Fail to get request parameters when updating order pay status!");
       return ApiReturnObjectUtil.getReturn400().toString();
     }
-    SimpleUser user = TokenAuthFilter.getCurrentUser();
+    // SimpleUser user = TokenAuthFilter.getCurrentUser();
     if (orderId == null || orderId == 0L) {
       logger.error("Fail to get productOrderId request parameters when updating order pay status!");
       return ApiReturnObjectUtil.getReturn400().toString();
     }
     @SuppressWarnings("unchecked")
     Map<String, Object> map = JSONConvertor.getJSONInstance().readValue(reqParam, Map.class);
-    Integer status = (Integer) map.get("status");
+    Integer status = (Integer) map.get(DataConstant.STATUS);
+    // Integer payType = (Integer) map.get(DataConstant.PAY_TYPE);
     String payStatus = (String) map.get("payInfo");
-    return productOrderService.updatetOrderPayStatus(orderId, user.getUserId(), status, payStatus).toString();
+    return productOrderService.updatetOrderPayStatus(orderId, status, payStatus).toString();
   }
 
   /**
@@ -128,6 +130,7 @@ public class ProductOrderController {
     Integer authority = user.getUserRole();
 
     ProductOrder productOrder = JSONConvertor.getJSONInstance().fromJson(reqParam, ProductOrder.class);
+    productOrder.setStatus(null);
     @SuppressWarnings("unchecked")
     Map<String, Object> orderMap = BeanUtils.describe(productOrder);
     BeanDBObjectUtils.filterBeanMap(orderMap);
@@ -149,19 +152,52 @@ public class ProductOrderController {
   /**
    * refund product order
    */
-  @RequestMapping(value = "/refund/{orderId}", method = RequestMethod.POST, produces = HttpConstant.CONTENT_TYPE_JSON)
+  @RequestMapping(value = "/status/{orderId}", method = RequestMethod.PUT, produces = HttpConstant.CONTENT_TYPE_JSON)
   public @ResponseBody
-  String refundProductOrder(HttpServletRequest request, @PathVariable("orderId") Long productOrderId, @PathVariable String apiVersion)
+  String updateProductOrderStatus(HttpServletRequest request, @PathVariable("orderId") Long productOrderId, @PathVariable String apiVersion)
       throws Exception {
+    String reqParam = StringHelper.getRequestEntityString(request);
+    if (reqParam.indexOf("error") >= 0) {
+      logger.error("Fail to get request parameters when updating product order status!");
+      return ApiReturnObjectUtil.getReturn400().toString();
+    }
     SimpleUser user = TokenAuthFilter.getCurrentUser();
-    if(user.getUserRole()!=1&&user.getUserRole()!=2){
-      logger.error("Fail to execute refund order task because of UNAUTHORIZED!");
+    if (user.getUserRole() != 1 && user.getUserRole() != 2) {
+      logger.error("Fail to update order status task because of UNAUTHORIZED!");
       return ApiReturnObjectUtil.getReturn401().toString();
     }
-    Integer status = 4;
+    if (productOrderId == null) {
+      logger.error("Fail to get request parameters when updating product order status!");
+      return ApiReturnObjectUtil.getReturn400().toString();
+    }
+    @SuppressWarnings("unchecked")
+    Map<String, Object> map = JSONConvertor.getJSONInstance().readValue(reqParam, Map.class);
+    Integer status = (Integer) map.get(DataConstant.STATUS);
     return productOrderService.updateProductOrderStatus(productOrderId, status).toString();
   }
-  
+
+  /**
+   * refund product order
+   */
+  @RequestMapping(value = "/refund/{type}/{orderId}", method = RequestMethod.POST, produces = HttpConstant.CONTENT_TYPE_JSON)
+  public @ResponseBody
+  String refundProductOrder(HttpServletRequest request, @PathVariable("type") Integer type, @PathVariable("orderId") Long productOrderId,
+      @PathVariable String apiVersion) throws Exception {
+    SimpleUser user = TokenAuthFilter.getCurrentUser();
+    Integer status = null;
+    switch (type) {
+      case 1:
+        status = 4;
+      case 2:
+        status = 7;
+    }
+    if (user.getUserRole() == 3) {
+      // common user apply product refund.
+      status = 4;
+    }
+    return productOrderService.updateProductOrderStatus(productOrderId, status).toString();
+  }
+
   /**
    * cancel product order
    */
@@ -170,7 +206,7 @@ public class ProductOrderController {
   String cancelProductOrder(HttpServletRequest request, @PathVariable("orderId") Long productOrderId, @PathVariable String apiVersion)
       throws Exception {
     SimpleUser user = TokenAuthFilter.getCurrentUser();
-    if(user.getUserRole()!=1&&user.getUserRole()!=2){
+    if (user.getUserRole() != 1 && user.getUserRole() != 2) {
       logger.error("Fail to execute cancel order task because of UNAUTHORIZED!");
       return ApiReturnObjectUtil.getReturn401().toString();
     }

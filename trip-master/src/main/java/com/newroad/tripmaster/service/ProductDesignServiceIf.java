@@ -1,9 +1,11 @@
 package com.newroad.tripmaster.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.newroad.tripmaster.dao.pojo.trip.CustomizeRoute;
 import com.newroad.tripmaster.dao.pojo.trip.POIRoute;
+import com.newroad.tripmaster.dao.pojo.trip.TravelDateUnit;
 import com.newroad.tripmaster.dao.pojo.trip.TravelPOI;
 import com.newroad.tripmaster.dao.pojo.trip.TripNotice;
 import com.newroad.tripmaster.dao.pojo.trip.TripProduct;
@@ -13,7 +15,7 @@ public interface ProductDesignServiceIf {
 
   public ServiceResult<String> createTripProduct(TripProduct tripProduct);
 
-  public ServiceResult<String> updateTripProduct(String tripProductId, Map<String, Object> updateActionMap);
+  public ServiceResult<String> updateTripProduct(String tripProductId, Map<String, Object> updateActionMap,List<TravelDateUnit> travelDateList);
 
   public ServiceResult<String> updateTripProductStatus(String tripProductId, Integer status);
 

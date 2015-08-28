@@ -6,7 +6,8 @@ import java.util.List;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
-import com.newroad.tripmaster.dao.pojo.SimpleUser;
+import com.newroad.tripmaster.dao.pojo.Lucker;
+import com.newroad.tripmaster.dao.pojo.info.UserBehavior;
 
 @Entity(value = "tripProduct", noClassnameStored = true)
 public class TripProduct implements Serializable {
@@ -32,6 +33,8 @@ public class TripProduct implements Serializable {
   private String userStartCity;
 
   private Double price;
+  
+  private Integer priceUnit;
 
   private Double discount;
 
@@ -48,20 +51,25 @@ public class TripProduct implements Serializable {
   private List<String> costCover;
 
   private List<String> travelCities;
-
+  
   private Long luckerId;
 
-  private SimpleUser userInfo;
+  //Temp
+  private Lucker lucker;
 
   private String tripRouteId;
 
   // 0:unusable 1:publish 2:pre-submit 3:approving 4:unapproved 5:off shelves
   private Integer status;
 
+  //Temp
+  private List<TravelDateUnit> travelDateList;
   // Temp
   private CustomizeRoute tripRoute;
   // Temp
   private List<TripNotice> tripNotices;
+  // Temp
+  private UserBehavior userBehavior;
 
   private Long createTime;
 
@@ -134,6 +142,14 @@ public class TripProduct implements Serializable {
   public void setPrice(Double price) {
     this.price = price;
   }
+  
+  public Integer getPriceUnit() {
+    return priceUnit;
+  }
+
+  public void setPriceUnit(Integer priceUnit) {
+    this.priceUnit = priceUnit;
+  }
 
   public Double getDiscount() {
     return discount;
@@ -198,6 +214,14 @@ public class TripProduct implements Serializable {
   public void setTripRouteId(String tripRouteId) {
     this.tripRouteId = tripRouteId;
   }
+  
+  public List<TravelDateUnit> getTravelDateList() {
+    return travelDateList;
+  }
+
+  public void setTravelDateList(List<TravelDateUnit> travelDateList) {
+    this.travelDateList = travelDateList;
+  }
 
   public CustomizeRoute getTripRoute() {
     return tripRoute;
@@ -205,6 +229,14 @@ public class TripProduct implements Serializable {
 
   public void setTripRoute(CustomizeRoute tripRoute) {
     this.tripRoute = tripRoute;
+  }
+
+  public UserBehavior getUserBehavior() {
+    return userBehavior;
+  }
+
+  public void setUserBehavior(UserBehavior userBehavior) {
+    this.userBehavior = userBehavior;
   }
 
   public List<TripNotice> getTripNotices() {
@@ -230,17 +262,17 @@ public class TripProduct implements Serializable {
   public void setLuckerId(Long luckerId) {
     this.luckerId = luckerId;
   }
+  
+  public Lucker getLucker() {
+    return lucker;
+  }
+
+  public void setLucker(Lucker lucker) {
+    this.lucker = lucker;
+  }
 
   public Long getCreateTime() {
     return createTime;
-  }
-
-  public SimpleUser getUserInfo() {
-    return userInfo;
-  }
-
-  public void setUserInfo(SimpleUser userInfo) {
-    this.userInfo = userInfo;
   }
 
   public void setCreateTime(Long createTime) {

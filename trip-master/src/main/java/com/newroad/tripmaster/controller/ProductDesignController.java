@@ -1,5 +1,6 @@
 package com.newroad.tripmaster.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import com.newroad.tripmaster.dao.pojo.Lucker;
 import com.newroad.tripmaster.dao.pojo.SimpleUser;
 import com.newroad.tripmaster.dao.pojo.trip.CustomizeRoute;
 import com.newroad.tripmaster.dao.pojo.trip.POIRoute;
+import com.newroad.tripmaster.dao.pojo.trip.TravelDateUnit;
 import com.newroad.tripmaster.dao.pojo.trip.TravelPOI;
 import com.newroad.tripmaster.dao.pojo.trip.TripNotice;
 import com.newroad.tripmaster.dao.pojo.trip.TripProduct;
@@ -76,9 +78,11 @@ public class ProductDesignController {
     }
 
     TripProduct product = JSONConvertor.getJSONInstance().fromJson(reqParam, TripProduct.class);
+    List<TravelDateUnit> travelDateList = product.getTravelDateList();
+    product.setTravelDateList(null);
     Map<String, Object> productMap = BeanDBObjectUtils.bean2Map(product);
     BeanDBObjectUtils.filterBeanMap(productMap);
-    return productDesignService.updateTripProduct(tripProductId, productMap).toString();
+    return productDesignService.updateTripProduct(tripProductId, productMap, travelDateList).toString();
   }
 
   /**
@@ -111,7 +115,7 @@ public class ProductDesignController {
   String listUserTripProduct(HttpServletRequest request, @PathVariable Integer start, @PathVariable Integer size,
       @PathVariable String apiVersion) throws Exception {
     SimpleUser user = TokenAuthFilter.getCurrentUser();
-    if (start == null || size == null) {
+    if (user == null && start == null || size == null) {
       logger.error("Fail to get request parameters when listing trip product!");
       return ApiReturnObjectUtil.getReturn400().toString();
     }

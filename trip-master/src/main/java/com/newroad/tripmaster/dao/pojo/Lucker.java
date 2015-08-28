@@ -12,7 +12,7 @@ public class Lucker extends SimpleUser implements Serializable {
 
   private Long luckerId;
 
-  private SimpleUser simpleUser;
+  private Long userId;
 
   private String work;
 
@@ -25,7 +25,19 @@ public class Lucker extends SimpleUser implements Serializable {
   private Integer countryTripCount;
 
   private Integer globalTripCount;
+  
+  private String luckerName;
+  
+  private String luckerPortrait;
+  
+  private String luckerMobile;
+  
+  private String luckerLevel;
 
+  private String luckerDesc;
+  
+  private SimpleUser simpleUser;
+  
   private String background;
   /**
    * 当前状态
@@ -47,6 +59,8 @@ public class Lucker extends SimpleUser implements Serializable {
   public void setLuckerId(Long luckerId) {
     this.luckerId = luckerId;
   }
+  
+  
 
   public String getWork() {
     return work;
@@ -96,12 +110,60 @@ public class Lucker extends SimpleUser implements Serializable {
     this.globalTripCount = globalTripCount;
   }
 
+  public Long getUserId() {
+    return userId;
+  }
+
+  public void setUserId(Long userId) {
+    this.userId = userId;
+  }
+
+  public String getLuckerName() {
+    return luckerName;
+  }
+
+  public void setLuckerName(String luckerName) {
+    this.luckerName = luckerName;
+  }
+
+  public String getLuckerMobile() {
+    return luckerMobile;
+  }
+
+  public void setLuckerMobile(String luckerMobile) {
+    this.luckerMobile = luckerMobile;
+  }
+
+  public String getLuckerPortrait() {
+    return luckerPortrait;
+  }
+
+  public void setLuckerPortrait(String luckerPortrait) {
+    this.luckerPortrait = luckerPortrait;
+  }
+  
+  public String getLuckerLevel() {
+    return luckerLevel;
+  }
+
+  public void setLuckerLevel(String luckerLevel) {
+    this.luckerLevel = luckerLevel;
+  }
+
   public SimpleUser getSimpleUser() {
     return simpleUser;
   }
 
   public void setSimpleUser(SimpleUser simpleUser) {
     this.simpleUser = simpleUser;
+  }
+  
+  public String getLuckerDesc() {
+    return luckerDesc;
+  }
+
+  public void setLuckerDesc(String luckerDesc) {
+    this.luckerDesc = luckerDesc;
   }
 
   public String getBackground() {

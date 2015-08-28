@@ -56,6 +56,8 @@ public class TokenAuthFilter implements Filter {
 
   private List<String> checkUrlList;
 
+  private String orderPayStatus = "/order/paystatus";
+
 
   public void init(FilterConfig filterConfig) throws ServletException {
     // urlRegx = filterConfig.getInitParameter("urlRegx");
@@ -74,11 +76,31 @@ public class TokenAuthFilter implements Filter {
     logger.info("not filter user login request string :" + checkUrl);
   }
 
+  private boolean isLocalIP(String ip) {
+
+    boolean result = false;
+    if (ip.indexOf("localhost") >= 0) {
+      result = true;
+    } else if (ip.indexOf("127.0.0.1") >= 0) {
+      result = true;
+    }
+    return result;
+  }
+
+  private boolean ignorePayOrderCheck(String url, String ip) {
+    if (url.indexOf(orderPayStatus) >= 0 && isLocalIP(ip)) {
+      logger.info("Order pay status uri " + url + " is approved to access!");
+      return true;
+    }
+    return false;
+  }
 
   private boolean needCheck(String uri) {
     if (!CollectionUtils.isEmpty(checkUrlList)) {
-      if (checkUrlList.contains(uri))
+      // Temp ignore order pay status request check
+      if (checkUrlList.contains(uri)) {
         return true;
+      }
 
       for (String checkUrl : checkUrlList) {
         if (uri.indexOf(checkUrl) != -1)
@@ -95,14 +117,10 @@ public class TokenAuthFilter implements Filter {
     HttpServletRequest req = (HttpServletRequest) request;
     HttpServletResponse res = (HttpServletResponse) response;
     String url = req.getRequestURI();
+    String remoteIP = req.getRemoteAddr();
 
-    if (!needCheck(url)) {
-      chain.doFilter(request, response);
-      return;
-    }
     String token = req.getHeader(TokenUtil.TOKEN);
     // String uid = req.getHeader(FullTextSearchConstants.USERID);
-
     if (StringUtils.isBlank(token))
       token = req.getParameter(TokenUtil.TOKEN);
 
@@ -118,29 +136,33 @@ public class TokenAuthFilter implements Filter {
       }
     }
 
-    if (StringUtils.isBlank(token)) {
+    // Need to change app type according to client request.
+    String app = "trip-master";
+    boolean tokenRequired = true;
+    if (!needCheck(url) || ignorePayOrderCheck(url, remoteIP)) {
+      tokenRequired = false;
+    }
+    logger.info("app=" + app + ",token=" + token + ",tokenRequired=" + tokenRequired);
+
+    if (tokenRequired && StringUtils.isBlank(token)) {
       out(res, getReturn(ReturnCode.UNAUTHORIZED, "No AuthToken in Http head!"));
       logger.warn("No AuthToken in Http head!");
       return;
     }
 
-    // Need to change app type according to client request.
-    String app = "trip-master";
-    logger.info("token=" + token + ";app=" + app);
     JSONObject session = restClient.checkAuth(token, app);
-    if (session == null) {
+    JSONObject sessionData=null;
+    if (session != null) {
+      sessionData = session.getJSONObject("data");
+      current.set(sessionData);
+      //check the user whether is allowed to access the specific url.
+      filterUserAuthority(sessionData, url, res);
+    } else if (tokenRequired && session == null) {
       out(res, getReturn(ReturnCode.UNAUTHORIZED, "The AuthToken is fail or expired!"));
       logger.warn("The AuthToken[" + token + "] is fail or expired!");
       return;
     }
-    JSONObject sessionData = session.getJSONObject("data");
-    Integer userRole = (Integer) sessionData.get("userRole");
-    if (!checkUserAuthority(url, userRole)) {
-      out(res, getReturn(ReturnCode.UNAUTHORIZED, "The User token hasn't access authority!"));
-      logger.warn("The User token[" + token + "] hasn't access authority!");
-      return;
-    }
-    current.set(sessionData);
+   
     try {
       chain.doFilter(request, response);
     } finally {
@@ -185,7 +207,17 @@ public class TokenAuthFilter implements Filter {
     return user;
   }
 
-  public Boolean checkUserAuthority(String uri, Integer userRole) {
+  public void filterUserAuthority(JSONObject sessionData, String url, HttpServletResponse res) {
+    Integer userRole = (Integer) sessionData.get("userRole");
+    String token = (String) sessionData.get("token");
+    if (!checkUserAuthority(url, userRole)) {
+      out(res, getReturn(ReturnCode.UNAUTHORIZED, "The User token hasn't access authority!"));
+      logger.error("The User token[" + token + "] hasn't access authority!");
+      return;
+    }
+  }
+
+  private Boolean checkUserAuthority(String uri, Integer userRole) {
     if (uri.contains("/design")) {
       if (userRole != 1 && userRole != 2) {
         logger.error("Fail to access because of unauthorization!");

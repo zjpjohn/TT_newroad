@@ -56,4 +56,7 @@ public interface UserConstant {
 
   public static final String SCORE = "score";
   public static final String CDKEY = "cdkey";
+  
+  public static final String MOBILE = "mobile";
+  public static final String MESSAGE="message";
 }

@@ -25,13 +25,16 @@ public class ProductOrder implements Serializable {
 
   private Integer orderType = 1;
 
+  //unit:yuan
   private Double orderAmount;
-
+  //unit:yuan
   private Double payAmount;
 
+  //yoyo pay key
   private String payKey;
 
-  private Integer people;
+  //pcs
+  private Integer pcs;
 
   private String contactName;
 
@@ -39,9 +42,11 @@ public class ProductOrder implements Serializable {
 
   private String contactMail;
 
-  // status 0:not used,1:confirm without pay,2:pay deal,3:cancel,4:refund,5:close
+  // status 0:not used,1:confirm without pay,2:pay deal,3:cancel,4:refund,5:complete,6:close,7:refund complete
   private Integer status;
 
+  //payType: 1:weixinPay, 
+  private Integer payType;
   
   private String payStatus; // User pay info
 
@@ -146,6 +151,14 @@ public class ProductOrder implements Serializable {
   public void setStatus(Integer status) {
     this.status = status;
   }
+  
+  public Integer getPayType() {
+    return payType;
+  }
+
+  public void setPayType(Integer payType) {
+    this.payType = payType;
+  }
 
   public String getPayStatus() {
     return payStatus;
@@ -179,12 +192,12 @@ public class ProductOrder implements Serializable {
     this.payKey = payKey;
   }
 
-  public Integer getPeople() {
-    return people;
+  public Integer getPcs() {
+    return pcs;
   }
 
-  public void setPeople(Integer people) {
-    this.people = people;
+  public void setPcs(Integer pcs) {
+    this.pcs = pcs;
   }
 
   public Integer getTripStartDate() {

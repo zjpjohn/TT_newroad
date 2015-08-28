@@ -10,22 +10,28 @@ import java.util.TreeMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.newroad.tripmaster.constant.DataConstant;
 import com.newroad.tripmaster.constant.JSONConvertor;
 import com.newroad.tripmaster.dao.CustomizeRouteDao;
+import com.newroad.tripmaster.dao.TravelDateUnitDao;
 import com.newroad.tripmaster.dao.TravelPOIDao;
 import com.newroad.tripmaster.dao.TripNoticeDao;
 import com.newroad.tripmaster.dao.TripPOIRouteDao;
 import com.newroad.tripmaster.dao.TripProductDao;
 import com.newroad.tripmaster.dao.pojo.Lucker;
 import com.newroad.tripmaster.dao.pojo.SimpleUser;
+import com.newroad.tripmaster.dao.pojo.info.UserBehavior;
 import com.newroad.tripmaster.dao.pojo.order.ProductOrder;
 import com.newroad.tripmaster.dao.pojo.trip.CustomizeRoute;
 import com.newroad.tripmaster.dao.pojo.trip.POIRoute;
+import com.newroad.tripmaster.dao.pojo.trip.TravelDateUnit;
 import com.newroad.tripmaster.dao.pojo.trip.TravelPOI;
 import com.newroad.tripmaster.dao.pojo.trip.TripDayRoute;
 import com.newroad.tripmaster.dao.pojo.trip.TripNotice;
 import com.newroad.tripmaster.dao.pojo.trip.TripProduct;
+import com.newroad.tripmaster.filter.TokenAuthFilter;
 import com.newroad.tripmaster.service.VoyagerServiceIf;
+import com.newroad.util.Page;
 import com.newroad.util.apiresult.ReturnCode;
 import com.newroad.util.apiresult.ServiceResult;
 
@@ -37,6 +43,8 @@ public class VoyagerService implements VoyagerServiceIf {
 
   private TripProductDao tripProductDao;
 
+  private TravelDateUnitDao travelDateUnitDao;
+
   private TripPOIRouteDao tripPOIRouteDao;
 
   private TravelPOIDao travelPOIDao;
@@ -46,6 +54,8 @@ public class VoyagerService implements VoyagerServiceIf {
   private ProductOrderService productOrderService;
 
   private CommonService commonService;
+
+  private InfoService infoService;
 
   /**
    * list trip products
@@ -63,11 +73,20 @@ public class VoyagerService implements VoyagerServiceIf {
 
     for (TripProduct tripProduct : tripProductList) {
       getProductLuckerInfo(tripProduct, tripProduct.getLuckerId());
+      List<TravelDateUnit> travelDateList = travelDateUnitDao.listTravelDateUnit(tripProduct.getTripProductId(), null, 1);
+      tripProduct.setTravelDateList(travelDateList);
     }
+
+    SimpleUser user = TokenAuthFilter.getCurrentUser();
+    Map<String,UserBehavior> behaviorTargetMap = null;
+    if (user != null && user.getUserId() != null) {
+      behaviorTargetMap = infoService.listUserBehaviorTarget(user.getUserId(), 1);
+    }
+
     Integer productCount = tripProductList.size();
 
     Map<String, Object> map = new HashMap<String, Object>(2);
-    map.put("productList", JSONConvertor.filterTripProducts(tripProductList));
+    map.put("productList", JSONConvertor.filterTripProducts(tripProductList, behaviorTargetMap));
     map.put("productCount", productCount);
     jsonResult = JSONConvertor.getJSONInstance().writeValueAsString(map);
     result.setBusinessResult(jsonResult);
@@ -75,8 +94,8 @@ public class VoyagerService implements VoyagerServiceIf {
   }
 
   private void getProductLuckerInfo(TripProduct tripProduct, Long luckerId) {
-    SimpleUser userInfo = commonService.getUserInfo(luckerId);
-    tripProduct.setUserInfo(userInfo);
+    Lucker lucker = commonService.getLuckerUserInfo(luckerId);
+    tripProduct.setLucker(lucker);
   }
 
   public ServiceResult<String> detailTripProduct(String productId) {
@@ -102,12 +121,34 @@ public class VoyagerService implements VoyagerServiceIf {
     }
 
     getProductLuckerInfo(tripProduct, tripProduct.getLuckerId());
+    List<TravelDateUnit> travelDateList = travelDateUnitDao.listTravelDateUnit(tripProduct.getTripProductId(), null, 1);
+    tripProduct.setTravelDateList(travelDateList);
 
     List<TripNotice> tripNotices = tripNoticeDao.listTripNoticeByProduct(productId);
     tripProduct.setTripNotices(tripNotices);
 
+    SimpleUser user = TokenAuthFilter.getCurrentUser();
+    if (user != null && user.getUserId() != null) {
+      List<UserBehavior> userBehaviors = infoService.listUserBehaviors(user.getUserId(), 1, tripRouteId);
+      if (userBehaviors.size() > 0) {
+        tripProduct.setUserBehavior(userBehaviors.get(0));
+      }
+    }
+
     jsonResult = JSONConvertor.getJSONInstance().writeValueAsString(tripProduct);
     logger.debug("Trip Product information:" + jsonResult);
+    result.setBusinessResult(jsonResult);
+    return result;
+  }
+
+  public ServiceResult<String> listProductTravelDates(String tripProductId, String yearMonth) {
+    ServiceResult<String> result = new ServiceResult<String>();
+
+    List<TravelDateUnit> travelDateList = travelDateUnitDao.listTravelDateUnit(tripProductId, yearMonth, 1);
+
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put(DataConstant.TRAVEL_DATE_LIST, travelDateList);
+    String jsonResult = JSONConvertor.getJSONInstance().writeValueAsString(map);
     result.setBusinessResult(jsonResult);
     return result;
   }
@@ -201,7 +242,15 @@ public class VoyagerService implements VoyagerServiceIf {
     // TODO Auto-generated method stub
     return null;
   }
-  
+
+  @Override
+  public ServiceResult<String> listLuckerUsers(Integer start, Integer size) {
+    Page<List<Lucker>> page = commonService.listLuckerUsers(start, size);
+    String json = JSONConvertor.getJSONInstance().toJson(page);
+    return new ServiceResult<String>(json);
+  }
+
+
   @Override
   public ServiceResult<String> getLuckerUserInfo(Long userId) {
     ServiceResult<String> result = new ServiceResult<String>();
@@ -220,7 +269,7 @@ public class VoyagerService implements VoyagerServiceIf {
   public ServiceResult<String> getMyUserInfo(Long userId) {
     ServiceResult<String> result = new ServiceResult<String>();
     String jsonResult = null;
-    SimpleUser simpleUser=commonService.getUserInfo(userId);
+    SimpleUser simpleUser = commonService.getUserInfo(userId);
     jsonResult = JSONConvertor.getJSONInstance().writeValueAsString(simpleUser);
     result.setBusinessResult(jsonResult);
     return result;
@@ -231,8 +280,8 @@ public class VoyagerService implements VoyagerServiceIf {
     ServiceResult<String> result = new ServiceResult<String>();
     String jsonResult = null;
     List<ProductOrder> productOrders = productOrderService.listUserProductOrders(userId);
-    for(ProductOrder order:productOrders){
-      Long luckerId=order.getLuckerId();
+    for (ProductOrder order : productOrders) {
+      Long luckerId = order.getLuckerId();
       Lucker lucker = commonService.getLuckerUserInfo(luckerId);
       order.setLucker(lucker);
       TripProduct tripProduct = tripProductDao.getTripProduct(order.getTripProductId());
@@ -242,15 +291,42 @@ public class VoyagerService implements VoyagerServiceIf {
     result.setBusinessResult(jsonResult);
     return result;
   }
-  
-  
+
+
   @Override
   public ServiceResult<String> listMyFavorite(Long userId) {
-    // TODO Auto-generated method stub
-    return null;
+    ServiceResult<String> result = new ServiceResult<String>();
+    String jsonResult = null;
+    List<UserBehavior> targetList = infoService.listUserBehaviors(userId, 1, null);
+    List<TripProduct> tripProductList = new ArrayList<TripProduct>();
+    for (UserBehavior userBehavior : targetList) {
+      String tripProductId = userBehavior.getTargetId();
+      TripProduct tripProduct = tripProductDao.getTripProduct(tripProductId);
+      tripProductList.add(tripProduct);
+    }
+
+    if (tripProductList == null || tripProductList.size() == 0) {
+      Map<String, Object> map = new HashMap<String, Object>(2);
+      map.put("favoriteCount", 0);
+      jsonResult = JSONConvertor.getJSONInstance().writeValueAsString(map);
+      result.setBusinessResult(jsonResult);
+      return result;
+    }
+
+    for (TripProduct tripProduct : tripProductList) {
+      getProductLuckerInfo(tripProduct, tripProduct.getLuckerId());
+    }
+    Integer productCount = tripProductList.size();
+
+    Map<String, Object> map = new HashMap<String, Object>(2);
+    map.put("favoriteList", JSONConvertor.filterTripProducts(tripProductList, null));
+    map.put("favoriteCount", productCount);
+    jsonResult = JSONConvertor.getJSONInstance().writeValueAsString(map);
+    result.setBusinessResult(jsonResult);
+    return result;
   }
 
-  
+
   public ServiceResult<String> recommendTripProduct(Long userId) {
     // TODO Auto-generated method stub
     return null;
@@ -284,5 +360,12 @@ public class VoyagerService implements VoyagerServiceIf {
     this.productOrderService = productOrderService;
   }
 
-  
+  public void setTravelDateUnitDao(TravelDateUnitDao travelDateUnitDao) {
+    this.travelDateUnitDao = travelDateUnitDao;
+  }
+
+  public void setInfoService(InfoService infoService) {
+    this.infoService = infoService;
+  }
+
 }

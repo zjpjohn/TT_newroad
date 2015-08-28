@@ -29,6 +29,8 @@ public class CustomizeRoute implements Serializable{
   //fileId,fileURL
   private List<String> carouselPics;
   
+  private List<String> travelCities;
+  
   //route map
   private String routeMap;
   
@@ -100,6 +102,14 @@ public class CustomizeRoute implements Serializable{
 
   public void setCarouselPics(List<String> carouselPics) {
     this.carouselPics = carouselPics;
+  }
+
+  public List<String> getTravelCities() {
+    return travelCities;
+  }
+
+  public void setTravelCities(List<String> travelCities) {
+    this.travelCities = travelCities;
   }
 
   public String getRouteMap() {

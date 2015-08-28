@@ -39,4 +39,6 @@ public interface SystemConstant {
   
   public static SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
   
+  public static SimpleDateFormat travelDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+  
 }

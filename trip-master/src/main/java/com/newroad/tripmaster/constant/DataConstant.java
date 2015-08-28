@@ -64,9 +64,17 @@ public interface DataConstant {
 
   public static String LUCKER_NAME = "luckerName";
 
-  public static String PORTRAIT = "portrait";
+  public static String LUCKER_PORTRAIT = "luckerPortrait";
+
+  public static String LUCKER_MOBILE = "luckerMobile";
+
+  public static String LUCKER_LEVEL = "luckerLevel";
+
+  public static String USER_FAVORITE = "userFavorite";
   
-  public static String LEVEL="level";
+  public static String PORTRAIT = "portrait";
+
+  public static String LEVEL = "level";
 
   public static String PRODUCT_NAME = "productName";
 
@@ -75,6 +83,8 @@ public interface DataConstant {
   public static String FEATURE = "feature";
 
   public static String PRICE = "price";
+
+  public static String PRICE_UNIT = "priceUnit";
 
   public static String COST_COVER = "costCover";
 
@@ -102,13 +112,13 @@ public interface DataConstant {
   public static String ROUTE_TAGS = "routeTags";
 
   public static String CAROUSEL_PICS = "carouselPics";
-  
-  public static String DAY_ROUTE_MAP="dayRouteMap";
-  
-  public static String DAY_ROUTE_INFO="dayRouteInfo";
 
-  public static String DAY_ROUTE_TITLE="dayRouteTitle";
-  
+  public static String DAY_ROUTE_MAP = "dayRouteMap";
+
+  public static String DAY_ROUTE_INFO = "dayRouteInfo";
+
+  public static String DAY_ROUTE_TITLE = "dayRouteTitle";
+
 
   public static String CITY_CODE = "cityCode";
 
@@ -121,12 +131,12 @@ public interface DataConstant {
   public static String CITY_TYPE = "cityType";
 
   public static String CITY_LEVEL = "cityLevel";
-  
-  public static String TRIP_NOTICE_ID="tripNoticeId";
-  
+
+  public static String TRIP_NOTICE_ID = "tripNoticeId";
+
   // POI Route
   public static String POI_ROUTE_ID = "poiRouteId";
-  
+
   public static String ROUTE_DAY = "routeDay";
 
   public static String TRAVELPOID = "travelPOIId";
@@ -142,14 +152,33 @@ public interface DataConstant {
   public static String PRODUCT_ORDER_ID = "orderId";
 
   public static String PRODUCT_ORDER_LIST = "orderList";
-  
+
   public static String PRODUCT_ORDER_COUNT = "orderCount";
 
   public static String UPDATE_AUTHORITY = "authority";
 
+  public static String PAY_TYPE = "payType";
+
   public static String PAY_STATUS = "payStatus";
 
-  public static String USER_ID="userId";
+  public static String USER_ID = "userId";
+
+  public static String USER_ROLE = "userRole";
+
+  // travelDate
+  public static String TRAVEL_DATE_UNIT = "travelDateUnit";
+
+  public static String TRAVEL_DATE_LIST = "travelDateList";
+
+  public static String YEAR_MONTH = "yearMonth";
+
+  public static String DATE_LIST = "dateList";
+
+  public static String BEHAVIOR_ID="behaviorId";
   
-  public static String USER_ROLE="userRole";
+  public static String ACTION_TYPE = "actionType";
+
+  public static String COMMENT_TYPE = "commentType";
+  
+  public static String TARGET_ID = "targetId";
 }

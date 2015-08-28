@@ -3,6 +3,7 @@
 	<name>trip-master</name>
 	<comment></comment>
 	<projects>
+		<project>common-util</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

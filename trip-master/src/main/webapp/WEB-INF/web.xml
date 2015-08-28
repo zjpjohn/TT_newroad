@@ -23,8 +23,8 @@
 		</filter-class>
 		<init-param>
 			<param-name>url</param-name>
-			<param-value>/design,/order,/admin,/voyager/mine</param-value>
-			<!--  <param-value>^(/\w+)+/(design|order|admin?!site|scenic|voyager).*$</param-value>-->
+			<param-value>/design,/order,/admin,/voyager/mine,/info</param-value>
+			<!-- <param-value>^(/\w+)+/(design|order|admin?!site|scenic|voyager).*$</param-value> -->
 		</init-param>
 	</filter>
 	<filter-mapping>

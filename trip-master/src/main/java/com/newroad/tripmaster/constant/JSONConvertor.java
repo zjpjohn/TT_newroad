@@ -17,6 +17,7 @@ import com.newroad.tripmaster.dao.pojo.Coordinate;
 import com.newroad.tripmaster.dao.pojo.Scenic;
 import com.newroad.tripmaster.dao.pojo.Site;
 import com.newroad.tripmaster.dao.pojo.info.Tips;
+import com.newroad.tripmaster.dao.pojo.info.UserBehavior;
 import com.newroad.tripmaster.dao.pojo.trip.CustomizeRoute;
 import com.newroad.tripmaster.dao.pojo.trip.POIRoute;
 import com.newroad.tripmaster.dao.pojo.trip.TripProduct;
@@ -149,23 +150,28 @@ public class JSONConvertor {
     return json;
   }
 
-  public static Map<String,Object> filterTripProduct(TripProduct product) {
+  public static Map<String, Object> filterTripProduct(TripProduct product) {
     return null;
   }
-  
-  public static Map<String,Object> filterTripRoute(CustomizeRoute route) {
+
+  public static Map<String, Object> filterTripRoute(CustomizeRoute route) {
     return null;
   }
-  
-  public static Map<String,Object> filterPOIRoute(POIRoute poiRoute) {
+
+  public static Map<String, Object> filterPOIRoute(POIRoute poiRoute) {
     return null;
   }
-  
+
   public static String resourceURLGenerate(String pictureKey) {
     return SystemConstant.QINIU_DOMAIN + pictureKey;
   }
-  
-  public static List<Object> filterTripProducts(List<TripProduct> tripProductList){
+
+  public static List<Object> filterTripProducts(List<TripProduct> tripProductList, Map<String, UserBehavior> behaviorTargetMap) {
+    boolean isUserBehaviorExist = false;
+    if (behaviorTargetMap != null && behaviorTargetMap.size() > 0) {
+      isUserBehaviorExist = true;
+    }
+
     List<Object> list = new ArrayList<Object>();
     for (TripProduct tripProduct : tripProductList) {
       Map<String, Object> map = new TreeMap<String, Object>();
@@ -178,12 +184,18 @@ public class JSONConvertor {
       map.put(DataConstant.TRAVEL_CITIES, tripProduct.getTravelCities());
       map.put(DataConstant.TRIP_ROUTE_ID, tripProduct.getTripRouteId());
       map.put(DataConstant.PRICE, tripProduct.getPrice());
+      map.put(DataConstant.PRICE_UNIT, tripProduct.getPriceUnit());
       map.put(DataConstant.STATUS, tripProduct.getStatus());
       map.put(DataConstant.LUCKER_ID, tripProduct.getLuckerId());
-      if (tripProduct.getUserInfo() != null) {
-        map.put(DataConstant.LUCKER_NAME, tripProduct.getUserInfo().getNickName());
-        map.put(DataConstant.PORTRAIT, tripProduct.getUserInfo().getPortrait());
-        map.put(DataConstant.LEVEL, tripProduct.getUserInfo().getLevel());
+      if (tripProduct.getLucker() != null) {
+        map.put(DataConstant.LUCKER_NAME, tripProduct.getLucker().getLuckerName());
+        map.put(DataConstant.LUCKER_PORTRAIT, tripProduct.getLucker().getLuckerPortrait());
+        map.put(DataConstant.LUCKER_LEVEL, tripProduct.getLucker().getLuckerLevel());
+      }
+      if (isUserBehaviorExist && behaviorTargetMap.get(tripProduct.getTripProductId()) != null) {
+        UserBehavior userBehavior = behaviorTargetMap.get(tripProduct.getTripProductId());
+        map.put(DataConstant.USER_FAVORITE, userBehavior.getActionType());
+        map.put(DataConstant.USER_ID, userBehavior.getUserId());
       }
       map.put(DataConstant.CREATE_TIME, tripProduct.getCreateTime());
       map.put(DataConstant.UPDATE_TIME, tripProduct.getUpdateTime());

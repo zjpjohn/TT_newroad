@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.newroad.util.Page;
+
 
 /**
  * @info  : 数据访问层 

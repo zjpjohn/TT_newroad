@@ -15,6 +15,7 @@ import com.newroad.tripmaster.dao.pojo.Lucker;
 import com.newroad.tripmaster.dao.pojo.SimpleUser;
 import com.newroad.tripmaster.dao.pojo.trip.TripCityDict;
 import com.newroad.tripmaster.service.CommonServiceIf;
+import com.newroad.util.Page;
 import com.newroad.util.apiresult.ServiceResult;
 import com.newroad.util.http.HttpUtil;
 import com.newroad.util.http.HttpUtil.Method;
@@ -24,17 +25,19 @@ public class CommonService implements CommonServiceIf {
 
   private static Logger logger = LoggerFactory.getLogger(CommonService.class);
 
-  @Value("${USERSNS_HOST_URL}")
-  private String accountHostURL;
+  @Value("${system.usersns.url}")
+  private String userSnsHostURL;
 
-  private static String USER_INFO_URL = "user/info";
+  static String USER_INFO_URL = "user/info";
 
-  private static String USER_LIST_URL = "user/list";
+  static String USER_LIST_URL = "user/list";
+  
+  static String SMS_MESSAGE_URL = "auth/sms/common";
 
   private MariaDao mariaDao;
 
   public String listSimpleUsers(Integer userRole, Integer start, Integer size) {
-    String url = accountHostURL + USER_LIST_URL;
+    String url = userSnsHostURL + USER_LIST_URL;
     StringBuilder urlsb = new StringBuilder();
     urlsb.append(url);
     urlsb.append("/" + userRole);
@@ -53,7 +56,7 @@ public class CommonService implements CommonServiceIf {
 
   public SimpleUser getUserInfo(Long userId) {
     SimpleUser userInfo = null;
-    String url = accountHostURL + USER_INFO_URL + "/" + userId;
+    String url = userSnsHostURL + USER_INFO_URL + "/" + userId;
     // Map<String, Object> requestMap = new HashMap<String, Object>(1);
     // requestMap.put(DataConstant.USER_ID, userId);
     String httpResult = null;
@@ -76,22 +79,29 @@ public class CommonService implements CommonServiceIf {
     Lucker lucker = (Lucker) mariaDao.selectOne("lucker.getLuckerByUserID", userId);
     return lucker;
   }
-  
-  public Boolean checkLuckerExist(Long userId){
-    Boolean result=true;
+
+  public Page<List<Lucker>> listLuckerUsers(Integer pageStart, Integer size) {
+    Page<List<Lucker>> page = new Page<List<Lucker>>();
+    page.setPage(pageStart);
+    page.setSize(size);
+    page = mariaDao.selectPage("lucker.findLuckers", page);
+    return page;
+  }
+
+  public Boolean checkLuckerExist(Long userId) {
+    Boolean result = true;
     Lucker lucker = getLuckerUserInfo(userId);
-    if(lucker.getLuckerId()==null){
+    if (lucker.getLuckerId() == null) {
       lucker.setUserId(userId);
-      int insertCount=mariaDao.insert("lucker.createLucker", lucker);
-      if(insertCount==1){
+      int insertCount = mariaDao.insert("lucker.createLucker", lucker);
+      if (insertCount == 1) {
         logger.info("Insert lucker into db!");
-      }else{
-        result=false;
+      } else {
+        result = false;
       }
     }
     return result;
   }
-
 
   public Integer updateLuckerUser(Long luckerId, Map<String, Object> luckerMap, Map<String, Object> userMap) {
     luckerMap.put(DataConstant.USER_ID, luckerId);
@@ -103,10 +113,6 @@ public class CommonService implements CommonServiceIf {
       logger.info("Update user count:" + updateCount2);
     }
     return updateCount;
-  }
-
-  public Boolean sendSMS(String message) {
-    return null;
   }
 
   public ServiceResult<String> listCities(String parentCode, Integer cityLevel) {
@@ -132,5 +138,10 @@ public class CommonService implements CommonServiceIf {
     this.mariaDao = mariaDao;
   }
 
+  public String getUserSnsHostURL() {
+    return userSnsHostURL;
+  }
 
+  
+  
 }

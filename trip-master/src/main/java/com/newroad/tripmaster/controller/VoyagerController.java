@@ -46,10 +46,13 @@ public class VoyagerController {
       case 2:
         result = voyagerService.listTripProduct(cityCode).toString();
         break;
+      default:
+        logger.error("Fail to get the correct recommendType when calling product list!");
+        return ApiReturnObjectUtil.getReturn400("Fail to get the correct recommendType when calling product list!").toString();
     }
     return result;
   }
-  
+
   /**
    * detail trip product
    */
@@ -58,9 +61,28 @@ public class VoyagerController {
   String detailTripProduct(HttpServletRequest request, @PathVariable("tripProductId") String tripProductId, @PathVariable String apiVersion)
       throws Exception {
     if (tripProductId == null || "".equals(tripProductId)) {
+      logger.error("Fail to get request parameters when get product " + tripProductId + "!");
       return ApiReturnObjectUtil.getReturn400().toString();
     }
     return voyagerService.detailTripProduct(tripProductId).toString();
+  }
+
+  /**
+   * detail trip product
+   */
+  @RequestMapping(value = "/product/traveldate/{tripProductId}/{yearMonth}", method = RequestMethod.GET,
+      produces = HttpConstant.CONTENT_TYPE_JSON)
+  public @ResponseBody
+  String listProductTravelDates(HttpServletRequest request, @PathVariable("tripProductId") String tripProductId,
+      @PathVariable("yearMonth") String yearMonth, @PathVariable String apiVersion) throws Exception {
+    if (tripProductId == null || "".equals(tripProductId)) {
+      logger.error("Fail to get request parameters when get product " + tripProductId + " travelDate!");
+      return ApiReturnObjectUtil.getReturn400().toString();
+    }
+    if ("0".equals(yearMonth)) {
+      yearMonth = null;
+    }
+    return voyagerService.listProductTravelDates(tripProductId, yearMonth).toString();
   }
 
   /**
@@ -71,6 +93,7 @@ public class VoyagerController {
   String detailTripRoute(HttpServletRequest request, @PathVariable("tripRouteId") String tripRouteId, @PathVariable String apiVersion)
       throws Exception {
     if (tripRouteId == null || "".equals(tripRouteId)) {
+      logger.error("Fail to get request parameters when get route " + tripRouteId + "!");
       return ApiReturnObjectUtil.getReturn400().toString();
     }
     return voyagerService.detailCustomizeRoute(tripRouteId).toString();
@@ -84,6 +107,7 @@ public class VoyagerController {
   String detailTravelPOI(HttpServletRequest request, @PathVariable("travelPOId") String travelPOId, @PathVariable String apiVersion)
       throws Exception {
     if (travelPOId == null || "".equals(travelPOId)) {
+      logger.error("Fail to get request parameters when get travelpoi " + travelPOId + "!");
       return ApiReturnObjectUtil.getReturn400().toString();
     }
     return voyagerService.detailTravelPOI(travelPOId).toString();
@@ -97,7 +121,7 @@ public class VoyagerController {
   String listProductLucker(HttpServletRequest request, @PathVariable("start") Integer start, @PathVariable("size") Integer size,
       @PathVariable String apiVersion) throws Exception {
     logger.debug("listProductLucker userRole=2");
-    return commonService.listSimpleUsers(2, start, size).toString();
+    return voyagerService.listLuckerUsers(start, size).toString();
   }
 
   /**
@@ -108,44 +132,42 @@ public class VoyagerController {
   String detailTravelLucker(HttpServletRequest request, @PathVariable("luckerId") Long luckerId, @PathVariable String apiVersion)
       throws Exception {
     if (luckerId == null || "".equals(luckerId)) {
+      logger.error("Fail to get request parameters when get lucker " + luckerId + "!");
       return ApiReturnObjectUtil.getReturn400().toString();
     }
     return voyagerService.getLuckerUserInfo(luckerId).toString();
   }
-  
+
   @RequestMapping(value = "/mine", method = RequestMethod.GET, produces = HttpConstant.CONTENT_TYPE_JSON)
   public @ResponseBody
-  String detailMyInfo(HttpServletRequest request, @PathVariable String apiVersion)
-      throws Exception {
+  String detailMyInfo(HttpServletRequest request, @PathVariable String apiVersion) throws Exception {
     SimpleUser user = TokenAuthFilter.getCurrentUser();
     Long userId = user.getUserId();
     return voyagerService.getMyUserInfo(userId).toString();
   }
-  
+
   /**
    * get lucker detail
    */
   @RequestMapping(value = "/mine/order", method = RequestMethod.GET, produces = HttpConstant.CONTENT_TYPE_JSON)
   public @ResponseBody
-  String listMyProductOrder(HttpServletRequest request, @PathVariable String apiVersion)
-      throws Exception {
+  String listMyProductOrder(HttpServletRequest request, @PathVariable String apiVersion) throws Exception {
     SimpleUser user = TokenAuthFilter.getCurrentUser();
     Long userId = user.getUserId();
     return voyagerService.listMyProductOrder(userId).toString();
   }
-  
+
   /**
    * get lucker detail
    */
   @RequestMapping(value = "/mine/favorite", method = RequestMethod.GET, produces = HttpConstant.CONTENT_TYPE_JSON)
   public @ResponseBody
-  String listMyFavorit(HttpServletRequest request, @PathVariable String apiVersion)
-      throws Exception {
+  String listMyFavorit(HttpServletRequest request, @PathVariable String apiVersion) throws Exception {
     SimpleUser user = TokenAuthFilter.getCurrentUser();
     Long userId = user.getUserId();
     return voyagerService.listMyFavorite(userId).toString();
   }
-  
+
   /**
    * list trip cities
    */

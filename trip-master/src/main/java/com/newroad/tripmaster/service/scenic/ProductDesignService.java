@@ -17,6 +17,7 @@ import com.newroad.tripmaster.dao.TripProductDao;
 import com.newroad.tripmaster.dao.pojo.trip.Count;
 import com.newroad.tripmaster.dao.pojo.trip.CustomizeRoute;
 import com.newroad.tripmaster.dao.pojo.trip.POIRoute;
+import com.newroad.tripmaster.dao.pojo.trip.TravelDateUnit;
 import com.newroad.tripmaster.dao.pojo.trip.TravelPOI;
 import com.newroad.tripmaster.dao.pojo.trip.TripNotice;
 import com.newroad.tripmaster.dao.pojo.trip.TripProduct;
@@ -30,6 +31,8 @@ public class ProductDesignService implements ProductDesignServiceIf {
 
   private TripProductDao tripProductDao;
 
+  private ProductDateInventoryService productInventoryService;
+
   private TripPOIRouteDao tripPOIRouteDao;
 
   private CustomizeRouteDao customizeRouteDao;
@@ -42,8 +45,10 @@ public class ProductDesignService implements ProductDesignServiceIf {
 
   public ServiceResult<String> createTripProduct(TripProduct tripProduct) {
     ServiceResult<String> result = new ServiceResult<String>();
-    tripProduct.setStatus(2);
+    List<TravelDateUnit> travelDateList = tripProduct.getTravelDateList();
 
+    tripProduct.setStatus(2);
+    tripProduct.setTravelDateList(null);
     Object idObj = tripProductDao.saveTripProduct(tripProduct);
     logger.info("TripProduct create objectId:" + idObj + "in pre-submit status!");
     if (idObj == null) {
@@ -52,11 +57,14 @@ public class ProductDesignService implements ProductDesignServiceIf {
       return result;
     }
     String tripProductId = idObj.toString();
+
+    productInventoryService.createProductDateInventory(tripProductId, travelDateList);
+
     Map<String, Object> tripRouteMap = createCustomizeRoute(new CustomizeRoute(tripProduct.getProductName(), tripProduct.getLuckerId()));
     if (tripRouteMap == null) {
       logger.error("Fail to create trip route because tripRouteId is null!");
     } else {
-      updateTripProduct(tripProductId, tripRouteMap);
+      updateTripProduct(tripProductId, tripRouteMap, null);
     }
     Map<String, Object> map = new HashMap<String, Object>();
     map.put(DataConstant.TRIP_PRODUCT_ID, tripProductId);
@@ -65,14 +73,19 @@ public class ProductDesignService implements ProductDesignServiceIf {
     return result;
   }
 
-  public ServiceResult<String> updateTripProduct(String tripProductId, Map<String, Object> updateActionMap) {
+  public ServiceResult<String> updateTripProduct(String tripProductId, Map<String, Object> updateActionMap,
+      List<TravelDateUnit> travelDateList) {
     ServiceResult<String> result = new ServiceResult<String>();
+
     int updateCount = tripProductDao.updateTripProduct(tripProductId, updateActionMap);
     logger.info("Update TripProduct objectId count:" + updateCount);
     if (updateCount == 0) {
       result.setReturnCode(ReturnCode.SERVER_ERROR);
       result.setReturnMessage("Fail to update trip product because ObjectId is null!");
       return result;
+    }
+    if (travelDateList != null) {
+      productInventoryService.updateProductDateUnit(tripProductId, travelDateList);
     }
     Map<String, Object> map = new HashMap<String, Object>();
     map.put(DataConstant.TRIP_PRODUCT_ID, tripProductId);
@@ -111,9 +124,13 @@ public class ProductDesignService implements ProductDesignServiceIf {
       tripProductList = tripProductDao.listTripProductByUser(luckerId, -1, start, size);
       countList = tripProductDao.aggregateCountTripProduct(luckerId);
     }
+    for (TripProduct tripProduct : tripProductList) {
+      List<TravelDateUnit> travelDateList = productInventoryService.listProductDateInventory(tripProduct.getTripProductId());
+      tripProduct.setTravelDateList(travelDateList);
+    }
 
     Map<String, Object> map = new HashMap<String, Object>(2);
-    map.put("productList", JSONConvertor.filterTripProducts(tripProductList));
+    map.put("productList", JSONConvertor.filterTripProducts(tripProductList, null));
     map.put("productCount", countList);
     jsonResult = JSONConvertor.getJSONInstance().writeValueAsString(map);
     result.setBusinessResult(jsonResult);
@@ -363,6 +380,11 @@ public class ProductDesignService implements ProductDesignServiceIf {
   public void setCommonService(CommonService commonService) {
     this.commonService = commonService;
   }
+
+  public void setProductInventoryService(ProductDateInventoryService productInventoryService) {
+    this.productInventoryService = productInventoryService;
+  }
+
 
 
 }

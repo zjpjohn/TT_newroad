@@ -39,13 +39,13 @@ public class Tips implements Serializable {
   
   private Integer useless=0;
   
-  private Long userid;
+  private Long userId;
   
   private SimpleUser userInfo;
   
-  private Long createtime;
+  private Long createTime;
   
-  private Long lastupdatedtime;
+  private Long updateTime;
 
   private Integer supporttype;
   
@@ -154,15 +154,37 @@ public class Tips implements Serializable {
     this.useless = useless;
   }
 
-  
-  public Long getUserid() {
-    return userid;
+ 
+
+  public Long getUserId() {
+    return userId;
   }
 
-  
-  public void setUserid(Long userid) {
-    this.userid = userid;
+
+  public void setUserId(Long userId) {
+    this.userId = userId;
   }
+
+
+  public Long getCreateTime() {
+    return createTime;
+  }
+
+
+  public void setCreateTime(Long createTime) {
+    this.createTime = createTime;
+  }
+
+
+  public Long getUpdateTime() {
+    return updateTime;
+  }
+
+
+  public void setUpdateTime(Long updateTime) {
+    this.updateTime = updateTime;
+  }
+
 
   public SimpleUser getUserInfo() {
     return userInfo;
@@ -172,27 +194,6 @@ public class Tips implements Serializable {
   public void setUserInfo(SimpleUser userInfo) {
     this.userInfo = userInfo;
   }
-
-
-  public Long getCreatetime() {
-    return createtime;
-  }
-
-  
-  public void setCreatetime(Long createtime) {
-    this.createtime = createtime;
-  }
-
-  
-  public Long getLastupdatedtime() {
-    return lastupdatedtime;
-  }
-
-  
-  public void setLastupdatedtime(Long lastupdatedtime) {
-    this.lastupdatedtime = lastupdatedtime;
-  }
-
 
   public Integer getSupporttype() {
     return supporttype;

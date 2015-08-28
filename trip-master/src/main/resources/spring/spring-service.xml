@@ -136,10 +136,16 @@
 		<property name="siteDao" ref="siteDao" />
 		<property name="commentDao" ref="commentDao" />
 		<property name="commonService" ref="commonService" />
+		<property name="userBehaviorDao" ref="userBehaviorDao" />
+	</bean>
+
+	<bean id="trackService"
+		class="com.newroad.tripmaster.service.aspect.TrackAspectService">
+		<property name="userBehaviorDao" ref="userBehaviorDao" />
 	</bean>
 
 	<bean id="commonService" class="com.newroad.tripmaster.service.scenic.CommonService">
-	    <property name="mariaDao" ref="mariaDao" />
+		<property name="mariaDao" ref="mariaDao" />
 	</bean>
 
 	<bean id="voyagerService" class="com.newroad.tripmaster.service.scenic.VoyagerService">
@@ -148,8 +154,10 @@
 		<property name="tripPOIRouteDao" ref="tripPOIRouteDao" />
 		<property name="customizeRouteDao" ref="customizeRouteDao" />
 		<property name="tripProductDao" ref="tripProductDao" />
+		<property name="travelDateUnitDao" ref="travelDateUnitDao" />
 		<property name="commonService" ref="commonService" />
 		<property name="productOrderService" ref="productOrderService" />
+		<property name="infoService" ref="infoService" />
 	</bean>
 
 	<bean id="productDesignService"
@@ -159,38 +167,39 @@
 		<property name="customizeRouteDao" ref="customizeRouteDao" />
 		<property name="tripProductDao" ref="tripProductDao" />
 		<property name="tripNoticeDao" ref="tripNoticeDao" />
+		<property name="productInventoryService" ref="productInventoryService" />
 		<property name="commonService" ref="commonService" />
 	</bean>
-	
+
+	<bean id="productInventoryService"
+		class="com.newroad.tripmaster.service.scenic.ProductDateInventoryService">
+		<property name="travelDateUnitDao" ref="travelDateUnitDao" />
+	</bean>
+
 	<bean id="productOrderService"
 		class="com.newroad.tripmaster.service.scenic.ProductOrderService">
 		<property name="mariaDao" ref="mariaDao" />
 		<property name="tripProductDao" ref="tripProductDao" />
+		<property name="taskExecutor" ref="taskExecutor" />
+		<property name="productInventoryService" ref="productInventoryService" />
 	</bean>
-	
+
 	<bean id="systemAdminService"
 		class="com.newroad.tripmaster.service.system.SystemAdminService">
 		<property name="mariaDao" ref="mariaDao" />
 	</bean>
-	
 
-	<bean id="trackAspect" class="com.newroad.tripmaster.service.aspect.TrackAspect" />
+
+	<bean id="trackAspect"
+		class="com.newroad.tripmaster.service.aspect.TrackAspectService" />
 
 	<aop:aspectj-autoproxy />
-	
+
 	<bean id="siteDao" class="com.newroad.tripmaster.dao.SiteDao">
 		<constructor-arg ref="datastore" />
 	</bean>
 
 	<bean id="scenicDao" class="com.newroad.tripmaster.dao.ScenicDao">
-		<constructor-arg ref="datastore" />
-	</bean>
-
-	<bean id="tipsDao" class="com.newroad.tripmaster.dao.TipsDao">
-		<constructor-arg ref="datastore" />
-	</bean>
-
-	<bean id="commentDao" class="com.newroad.tripmaster.dao.CommentDao">
 		<constructor-arg ref="datastore" />
 	</bean>
 
@@ -211,6 +220,22 @@
 	</bean>
 
 	<bean id="tripNoticeDao" class="com.newroad.tripmaster.dao.TripNoticeDao">
+		<constructor-arg ref="datastore" />
+	</bean>
+
+	<bean id="travelDateUnitDao" class="com.newroad.tripmaster.dao.TravelDateUnitDao">
+		<constructor-arg ref="datastore" />
+	</bean>
+
+	<bean id="userBehaviorDao" class="com.newroad.tripmaster.dao.UserBehaviorDao">
+		<constructor-arg ref="datastore" />
+	</bean>
+
+	<bean id="tipsDao" class="com.newroad.tripmaster.dao.TipsDao">
+		<constructor-arg ref="datastore" />
+	</bean>
+
+	<bean id="commentDao" class="com.newroad.tripmaster.dao.CommentDao">
 		<constructor-arg ref="datastore" />
 	</bean>
 
