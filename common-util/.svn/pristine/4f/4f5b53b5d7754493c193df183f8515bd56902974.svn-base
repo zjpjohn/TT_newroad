@@ -66,8 +66,6 @@ public enum ReturnCode {
 
   /** 返回码, 无法获得有效随机数:428 */
   NO_AVAILABLE_RANDOM_CODE(428, "NO AVAILABLE RANDOM CODE"),
-  
-  SMS_SEND_ERROR(429, "SMS SEND ERROR"),
 
   /** 返回码,服务器错误:500 */
   SERVER_ERROR(500, "SERVER ERROR"),
