@@ -1,4 +1,4 @@
-package com.newroad.cache.common.redis;
+package com.newroad.cache.common.basic;
 
 import java.io.Serializable;
 import java.util.List;
@@ -6,27 +6,19 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import redis.clients.jedis.Jedis;
-
 import com.newroad.cache.common.Cache;
-import com.newroad.cache.common.tools.SerializeUtil;
 
-public class RedisCache implements Cache<String, Serializable> {
+public class SimpleCache implements Cache<String, Serializable> {
 
   ConcurrentMap<String, Serializable> map = new ConcurrentHashMap<String, Serializable>();
 
-  protected Jedis cacheClient;
-
-  public RedisCache() {
+  public SimpleCache() {
     super();
-    this.cacheClient = RedisManager.getJedis();
   }
 
   @Override
   public Serializable get(String key) {
-    byte[] bytes = cacheClient.get(key.getBytes());
-    // return map.get(key);
-    return (Serializable) SerializeUtil.unserialize(bytes);
+    return map.get(key);
   }
 
   @Override
@@ -37,24 +29,14 @@ public class RedisCache implements Cache<String, Serializable> {
 
   @Override
   public boolean set(String key, Serializable value) {
-    String statusCode = cacheClient.set(key.getBytes(), SerializeUtil.serialize(value));
-    // map.put(key, value);
-    if (statusCode != null) {
-      return true;
-    } else {
-      return false;
-    }
+    map.put(key, value);
+    return true;
   }
 
   @Override
   public boolean set(String key, Serializable value, long expire) {
-    String statusCode = cacheClient.set(key.getBytes(), SerializeUtil.serialize(value), "NX".getBytes(), "EX".getBytes(), expire);
-    //map.put(key, value);
-    if (statusCode != null) {
-      return true;
-    } else {
-      return false;
-    }
+    map.put(key, value);
+    return true;
   }
 
   @Override
@@ -65,8 +47,7 @@ public class RedisCache implements Cache<String, Serializable> {
 
   @Override
   public boolean delete(String key) {
-    Long integerCode=cacheClient.del(key.getBytes());
-    //map.remove(key);
+    map.remove(key);
     return true;
   }
 
