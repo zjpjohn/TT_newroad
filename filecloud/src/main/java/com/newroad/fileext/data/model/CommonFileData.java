@@ -12,14 +12,8 @@ public class CommonFileData implements Serializable {
   private String fileId;
   private String fileName;
   private Integer fileType;
-  private Integer contentType;
-  private Long size;
-  
-  private String hash;
-  private Integer width;
-  private Integer height;
-
-  private String ownerId;
+  private String location;
+  private Long userId;
   private Integer status;
   private Integer version;
   private Long createTime;
@@ -27,14 +21,13 @@ public class CommonFileData implements Serializable {
   
   private CloudFileData cloudFileData;
 
-  public static CommonFileData create(String userId,CloudFileData cloudFileData) {
+  public static CommonFileData create(Long userId,CloudFileData cloudFileData) {
     CommonFileData fileResource = new CommonFileData();
-    fileResource.setOwnerId(userId);
-    fileResource.setFileId(cloudFileData.getKeyId());
-    fileResource.setFileName(cloudFileData.getFileName());
-    fileResource.setContentType(FileMimeType.getValue(cloudFileData.getContentType()));
-    fileResource.setSize(cloudFileData.getCacheFileData().getCacheSize());
-    
+  
+    fileResource.setFileName(cloudFileData.getKey());
+    fileResource.setFileType(1);
+    fileResource.setCloudFileData(cloudFileData);
+    fileResource.setUserId(userId);
     // stand alone resource
     fileResource.setStatus(1);
     long now = System.currentTimeMillis();
@@ -66,21 +59,13 @@ public class CommonFileData implements Serializable {
   public void setFileType(Integer fileType) {
     this.fileType = fileType;
   }
-
-  public Integer getContentType() {
-    return contentType;
+  
+  public String getLocation() {
+    return location;
   }
 
-  public void setContentType(Integer contentType) {
-    this.contentType = contentType;
-  }
-
-  public Long getSize() {
-    return size;
-  }
-
-  public void setSize(Long size) {
-    this.size = size;
+  public void setLocation(String location) {
+    this.location = location;
   }
 
   public Integer getVersion() {
@@ -107,39 +92,12 @@ public class CommonFileData implements Serializable {
     this.cloudFileData = cloudFileData;
   }
 
-  public String getOwnerId() {
-    return ownerId;
+  public Long getUserId() {
+    return userId;
   }
 
-  public void setOwnerId(String ownerId) {
-    this.ownerId = ownerId;
-  }
-
-  public String getHash() {
-    if (hash == null) {
-      hash = Integer.valueOf(hashCode()).toString();
-    }
-    return hash;
-  }
-
-  public void setHash(String hash) {
-    this.hash = hash;
-  }
-
-  public Integer getWidth() {
-    return width;
-  }
-
-  public void setWidth(Integer width) {
-    this.width = width;
-  }
-
-  public Integer getHeight() {
-    return height;
-  }
-
-  public void setHeight(Integer height) {
-    this.height = height;
+  public void setUserId(Long userId) {
+    this.userId = userId;
   }
 
   public Long getCreateTime() {
@@ -162,10 +120,9 @@ public class CommonFileData implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((contentType == null) ? 0 : contentType.hashCode());
+    result = prime * result + ((fileId == null) ? 0 : fileId.hashCode());
     result = prime * result + ((createTime == null) ? 0 : createTime.hashCode());
     result = prime * result + ((fileName == null) ? 0 : fileName.hashCode());
-    result = prime * result + ((size == null) ? 0 : size.hashCode());
     return result;
   }
 
@@ -178,10 +135,10 @@ public class CommonFileData implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     CommonFileData other = (CommonFileData) obj;
-    if (contentType == null) {
-      if (other.contentType != null)
+    if (fileId == null) {
+      if (other.fileId != null)
         return false;
-    } else if (!contentType.equals(other.contentType))
+    } else if (!fileId.equals(other.fileId))
       return false;
     if (createTime == null) {
       if (other.createTime != null)
@@ -192,11 +149,6 @@ public class CommonFileData implements Serializable {
       if (other.fileName != null)
         return false;
     } else if (!fileName.equals(other.fileName))
-      return false;
-    if (size == null) {
-      if (other.size != null)
-        return false;
-    } else if (!size.equals(other.size))
       return false;
     return true;
   }

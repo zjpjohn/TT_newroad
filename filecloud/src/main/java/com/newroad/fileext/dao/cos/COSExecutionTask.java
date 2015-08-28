@@ -20,21 +20,21 @@ import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.lenovo.pilot.PilotException;
-import com.lenovo.pilot.PilotOssCloud;
-import com.lenovo.pilot.PilotOssEx;
-import com.lenovo.pilot.PilotOssListenerEx;
-import com.lenovo.pilot.PilotOssObjectBaseEx;
-import com.lenovo.pilot.PilotOssObjectListEx;
-import com.lenovo.pilot.TaskStatus;
-import com.lenovo.pilot.util.CallbackData;
-import com.lenovo.pilot.util.PilotOssConstants.ThumbnailGenerateType;
-import com.lenovo.pilot.util.ResourceData;
 import com.newroad.fileext.dao.CloudFileExecutionCode;
 import com.newroad.fileext.data.model.CloudFileData;
 import com.newroad.fileext.data.model.ThumbnailCache;
 import com.newroad.fileext.data.model.ThumbnailType;
 import com.newroad.fileext.utilities.SystemProperties;
+import com.newroad.pilot.PilotException;
+import com.newroad.pilot.PilotOssCloud;
+import com.newroad.pilot.PilotOssEx;
+import com.newroad.pilot.PilotOssListenerEx;
+import com.newroad.pilot.PilotOssObjectBaseEx;
+import com.newroad.pilot.PilotOssObjectListEx;
+import com.newroad.pilot.TaskStatus;
+import com.newroad.pilot.util.CallbackData;
+import com.newroad.pilot.util.PilotOssConstants.ThumbnailGenerateType;
+import com.newroad.pilot.util.ResourceData;
 import com.newroad.util.MathsHelper;
 import com.newroad.util.exception.COSException;
 
@@ -95,7 +95,7 @@ public class COSExecutionTask implements Callable<Object> {
   public Object executeObject(String bucketName, CloudFileData cdata) throws PilotException {
     boolean result = false;
     cdata.setBucketName(bucketName);
-    String keyID = cdata.getKeyId();
+    String keyID = cdata.getKey();
     String url = cdata.getLink();
     Long offset = 0L;
 
@@ -138,7 +138,7 @@ public class COSExecutionTask implements Callable<Object> {
             InputStream input = new ByteArrayInputStream(cdata.getCacheFileData().getFileByte());
             result = putObject(input, cdata.getContentType(), cdata.getCacheFileData().getOffset(), cacheSize, cdata.getCallback());
           }
-          cdata.setKeyId(object.getKeyID());
+          cdata.setKey(object.getKeyID());
           cdata.setLink(object.getUrl());
           cdata.setCloudSize(cacheSize);
           cdata.setCloudExecuteStatus(result);
@@ -224,9 +224,9 @@ public class COSExecutionTask implements Callable<Object> {
     String[] keys = new String[fileNum];
     for (int i = 0; i < fileNum; i++) {
       CloudFileData fileData = dataArray[i];
-      String key = fileData.getKeyId();
+      String key = fileData.getKey();
       if (key != null) {
-        keys[i] = fileData.getKeyId();
+        keys[i] = fileData.getKey();
       }
     }
     try {

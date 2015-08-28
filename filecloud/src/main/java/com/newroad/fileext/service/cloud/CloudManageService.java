@@ -136,7 +136,7 @@ public class CloudManageService {
   private void writeOutputFile(BufferedWriter bw, CloudFileData localFile, CloudFileData cloudFile) throws IOException {
     long localSize = localFile.getCloudSize();
     long cloudSize = cloudFile.getCloudSize();
-    String keyID = localFile.getKeyId();
+    String keyID = localFile.getKey();
     if (localSize != cloudSize) {
       bw.write(keyID + "," + localSize + "," + cloudSize);
       bw.newLine();

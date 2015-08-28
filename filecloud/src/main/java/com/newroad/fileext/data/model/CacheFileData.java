@@ -1,6 +1,12 @@
 package com.newroad.fileext.data.model;
 
-public class CacheFileData {
+public class CacheFileData extends CloudFileData{
+  
+  
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 5595935425964306091L;
   // cache file info
   private byte[] fileByte;
   private String fileCachePath;

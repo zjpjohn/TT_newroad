@@ -24,7 +24,7 @@ public class TransferObjectAssembler {
       CloudFileData atta = resource.getFileData();
       JSONObject jo = new JSONObject();
       jo.put(FileDataConstant.CLIENT_RESOURCE_ID, resource.getClientResourceID());
-      jo.put(FileDataConstant.RESOURCE_KEY_ID, atta.getKeyId());
+      jo.put(FileDataConstant.RESOURCE_KEY_ID, atta.getKey());
       // jo.put(FileDataConstant.RESOURCE_LINK, atta.getLink());
       jo.put(FileDataConstant.FILE_NAME, atta.getFileName());
       String contentType = atta.getContentType();
@@ -55,7 +55,7 @@ public class TransferObjectAssembler {
     }
     for (CloudFileData atta : list) {
       JSONObject jo = new JSONObject();
-      jo.put(FileDataConstant.RESOURCE_KEY_ID, atta.getKeyId());
+      jo.put(FileDataConstant.RESOURCE_KEY_ID, atta.getKey());
       // jo.put(FileDataConstant.RESOURCE_LINK, atta.getLink());
       jo.put(FileDataConstant.FILE_NAME, atta.getFileName());
       String contentType = atta.getContentType();

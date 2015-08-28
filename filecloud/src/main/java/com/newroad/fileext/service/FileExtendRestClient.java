@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.newroad.util.apiresult.ApiReturnObjectUtil;
 import com.newroad.util.apiresult.ReturnCode;
+import com.newroad.util.auth.TokenUtil;
 
 /**
  * @info Rest Client
@@ -57,7 +58,7 @@ public class FileExtendRestClient {
 
   public static Map<String, String> getHttpHeaders(JSONObject session) {
     Map<String, String> headers = new HashMap<String, String>();
-    headers.put("AuthToken", session.getString("token"));
+    headers.put(TokenUtil.TOKEN, session.getString("token"));
     return headers;
   }
 

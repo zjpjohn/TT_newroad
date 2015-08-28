@@ -7,11 +7,11 @@ import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.lenovo.pilot.PilotException;
-import com.lenovo.pilot.PilotOssCloud;
-import com.lenovo.pilot.PilotOssEx;
-import com.lenovo.pilot.PilotOssObjectBaseEx;
 import com.newroad.fileext.utilities.SystemProperties;
+import com.newroad.pilot.PilotException;
+import com.newroad.pilot.PilotOssCloud;
+import com.newroad.pilot.PilotOssEx;
+import com.newroad.pilot.PilotOssObjectBaseEx;
 import com.newroad.util.exception.COSException;
 
 /**

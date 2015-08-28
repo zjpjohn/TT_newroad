@@ -29,7 +29,6 @@ public class FileDataConstant {
   public static final String ZY_FILE_STORE_HEADER = "/data/productsImg/";
   
   public static final String PUBLIC_LINK_TAG="http://iocos.lenovows.com/v2/tiny/";
-  public static final String AUTH_TOKEN = "AuthToken";
   public static final String LENOVO_ST = "lenovoST";
   public static final String REALM = "realm";
   public static final String COS_CONNECTOR = "cosConnector";

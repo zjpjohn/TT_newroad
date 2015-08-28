@@ -102,11 +102,11 @@ public class TokenAuthFilter implements Filter {
   }
 
   private String checkAuthTokenExist(HttpServletRequest req) {
-    String token = req.getHeader(FileDataConstant.AUTH_TOKEN);
+    String token = req.getHeader(TokenUtil.TOKEN);
 
     // check authtoken in request header from COS callback request
     if (StringUtils.isBlank(token)) {
-      token = req.getHeader(FileDataConstant.AUTH_TOKEN.toLowerCase());
+      token = req.getHeader(TokenUtil.TOKEN.toLowerCase());
     }
 
     // send authToken in Cookie in order to download picture using link.
@@ -128,7 +128,7 @@ public class TokenAuthFilter implements Filter {
 
     // send authToken in http get parameter in order to play flash audio online.
     if (StringUtils.isBlank(token)) {
-      token = req.getParameter(FileDataConstant.AUTH_TOKEN);
+      token = req.getParameter(TokenUtil.TOKEN);
     }
     return token;
   }
@@ -136,7 +136,7 @@ public class TokenAuthFilter implements Filter {
   private JSONObject checkAuthByToken(String token) {
     String app = "filecloud";
     Map<String, String> headers = new HashMap<String, String>(1);
-    headers.put(TokenUtil.AUTH_TOKEN, token);
+    headers.put(TokenUtil.TOKEN, token);
     return restClient.checkAuth(headers, app);
   }
 
@@ -159,5 +159,14 @@ public class TokenAuthFilter implements Filter {
     if (session == null)
       return null;
     return session;
+  }
+  
+  public static Long getCurrentUser(){
+    Long userId=null;
+    JSONObject session=getCurrent();
+    if(session!=null){
+      userId=session.getLong("userID");
+    }
+    return userId;
   }
 }

@@ -47,7 +47,7 @@ public class FileCacheTaskQueue implements FileCacheTaskQueueIf {
       throw new FileResourceException("Couldn't find the correct cloud file which fileData is null!");
     }
 
-    String keyID = fileData.getKeyId();
+    String keyID = fileData.getKey();
     String fileName = fileData.getFileName();
     if (fileName == null) {
       fileName = fileResource.getFileName();
@@ -76,7 +76,7 @@ public class FileCacheTaskQueue implements FileCacheTaskQueueIf {
   public CloudFileData cacheCloudThumbnail(JSONObject sessionUser, CloudFileData fileData, ThumbnailType thumbnailType) {
     String token = getAuthToken(sessionUser);
     fileData.setToken(token);
-    String resourceKeyID = fileData.getKeyId();
+    String resourceKeyID = fileData.getKey();
     String cacheFilePath = fileData.getCacheFileData().getFileCachePath();
 
     if (cacheFilePath == null) {
@@ -141,7 +141,7 @@ public class FileCacheTaskQueue implements FileCacheTaskQueueIf {
     String token = getAuthToken(sessionUser);
     CloudFileData fileData = new CloudFileData();
     fileData.setToken(token);
-    fileData.setKeyId(resourceKeyID);
+    fileData.setKey(resourceKeyID);
     // fileData.setLink(resourceLink);
     fileData.setFileName(fileName);
     if (fileSize != null) {
@@ -184,10 +184,10 @@ public class FileCacheTaskQueue implements FileCacheTaskQueueIf {
       return null;
     } catch (InterruptedException e) {
       logger.error("executeCallableCOSTask InterruptedException!", e);
-      throw new FileResourceException("Couldn't find the correct file which keyID is " + fileData[0].getKeyId() + " from Cloud!");
+      throw new FileResourceException("Couldn't find the correct file which keyID is " + fileData[0].getKey() + " from Cloud!");
     } catch (ExecutionException e) {
       logger.error("executeCallableCOSTask ExecutionException!", e);
-      throw new FileResourceException("Couldn't find the correct file which keyID is " + fileData[0].getKeyId() + " from Cloud!");
+      throw new FileResourceException("Couldn't find the correct file which keyID is " + fileData[0].getKey() + " from Cloud!");
     }
   }
 

@@ -47,7 +47,7 @@ public class FileNoteManageService implements FileStoreServiceIf {
    */
   public CommonFileData getFileResource(final String clientResourceID) {
     NoteFileData fileResource = getFileResourceById(clientResourceID, null, 1);
-    if (fileResource == null || fileResource.getFileData().getKeyId() == null) {
+    if (fileResource == null || fileResource.getFileData().getKey() == null) {
       return null;
     }
     return fileResource;

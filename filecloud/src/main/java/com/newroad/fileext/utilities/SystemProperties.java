@@ -28,7 +28,7 @@ public class SystemProperties {
   // public final static String workspace = "lenote";
 
   public final static String spec = "";
-  public final static String bucketName = "lenote";
+  public final static String bucketName = "xingzhe-bucket";
 
   public final static String testUser = "yanfei6@lenovo.com";
   public final static String testPassword = "000000";
@@ -62,9 +62,9 @@ public class SystemProperties {
     Properties props = new Properties();
     try {
       props.load(is);
-      logPath = props.getProperty("COS_LOGPATH", logPath);
-      logLevel = Integer.valueOf(props.getProperty("COS_LOGLEVEL"));
-      useListener = Boolean.valueOf(props.getProperty("COS_LISTENER"));
+//      logPath = props.getProperty("COS_LOGPATH", logPath);
+//      logLevel = Integer.valueOf(props.getProperty("COS_LOGLEVEL"));
+//      useListener = Boolean.valueOf(props.getProperty("COS_LISTENER"));
 
       speexdecPath = props.getProperty("AUDIO_SPEEXDEC_PATH", speexdecPath);
       lamePath = props.getProperty("AUDIO_LAME_PATH", lamePath);

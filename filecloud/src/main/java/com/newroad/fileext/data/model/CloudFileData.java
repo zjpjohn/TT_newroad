@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import com.lenovo.pilot.util.CallbackData;
+import com.newroad.pilot.util.CallbackData;
 
 /**
  * @Info basic file data object for upload/download/cloud storage 
@@ -18,12 +18,20 @@ public class CloudFileData implements Serializable {
 
   private String token;
   private String bucketName;
-  private String keyId;
   private String fileName;
   private String contentType;
+  private Long size;
+  
+  private String key;
+  private String hash;
+  private Integer width;
+  private Integer height;
   private String link;
   private String publicLink;
 
+ 
+  public byte[] fileByte;
+  
   private ThumbnailCache currentThumbnailCache;
   private Map<ThumbnailType, ThumbnailCache> thumbnailCacheMap;
 
@@ -57,13 +65,57 @@ public class CloudFileData implements Serializable {
   public void setBucketName(String bucketName) {
     this.bucketName = bucketName;
   }
-
-  public String getKeyId() {
-    return keyId;
+  
+  public String getKey() {
+    return key;
   }
 
-  public void setKeyId(String keyId) {
-    this.keyId = keyId;
+  public void setKey(String key) {
+    this.key = key;
+  }
+
+  public String getHash() {
+    return hash;
+  }
+
+  public void setHash(String hash) {
+    this.hash = hash;
+  }
+
+  public Integer getWidth() {
+    return width;
+  }
+
+  public void setWidth(Integer width) {
+    this.width = width;
+  }
+
+  public Integer getHeight() {
+    return height;
+  }
+
+  public void setHeight(Integer height) {
+    this.height = height;
+  }
+
+  public void setThumbnailCacheMap(Map<ThumbnailType, ThumbnailCache> thumbnailCacheMap) {
+    this.thumbnailCacheMap = thumbnailCacheMap;
+  }
+
+  public Long getSize() {
+    return size;
+  }
+
+  public void setSize(Long size) {
+    this.size = size;
+  }
+
+  public byte[] getFileByte() {
+    return fileByte;
+  }
+
+  public void setFileByte(byte[] fileByte) {
+    this.fileByte = fileByte;
   }
 
   public String getLink() {

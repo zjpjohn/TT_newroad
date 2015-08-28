@@ -45,6 +45,7 @@ import com.newroad.fileext.utilities.FileDataConstant;
 import com.newroad.util.StringHelper;
 import com.newroad.util.apiresult.ApiReturnObjectUtil;
 import com.newroad.util.apiresult.ServiceResult;
+import com.newroad.util.auth.TokenUtil;
 import com.newroad.util.iohandler.FileHelper;
 import com.newroad.util.iohandler.TypeConvertor;
 
@@ -177,7 +178,7 @@ public class FileExtendController {
   @RequestMapping(value = "/saveMessageResource")
   public @ResponseBody
   String saveMessageResource(HttpServletRequest request, @PathVariable String apiVersion, HttpServletResponse response) {
-    String token = request.getHeader("AuthToken");
+    String token = request.getHeader(TokenUtil.TOKEN);
     if ("".equals(token) || !"oms".equalsIgnoreCase(token)) {
       logger.error("No AuthToken in Http head!");
       return "{returnCode:401, returnMessage:'No AuthToken in Http head!'}";
@@ -471,7 +472,7 @@ public class FileExtendController {
     is.close();
     logger.info("Upload File " + keyId + ",contentType:" + contentType + ",size(byte):" + size);
     CloudFileData cloudFile = new CloudFileData();
-    cloudFile.setKeyId(keyId);
+    cloudFile.setKey(keyId);
     cloudFile.setFileName(name);
     cloudFile.setContentType(contentType);
     cloudFile.setCacheFileData(new CacheFileData(fileByte,Long.valueOf(size)));

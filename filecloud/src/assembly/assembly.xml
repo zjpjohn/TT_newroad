@@ -41,7 +41,7 @@
 			<filtered>true</filtered>
 		</file>
 		<file>
-			<source>src/assembly/config/memcached.properties</source>
+			<source>src/assembly/config/cache.properties</source>
 			<outputDirectory>WEB-INF/classes/config</outputDirectory>
 			<filtered>true</filtered>
 		</file>

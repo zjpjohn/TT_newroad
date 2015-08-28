@@ -69,7 +69,7 @@ public class NoteFileData extends CommonFileData implements Serializable {
   public static NoteFileData create(String userId, CloudFileData fileData) {
     NoteFileData fileResource = new NoteFileData();
     fileResource.setUserID(userId);
-    fileResource.setClientResourceID(fileData.getKeyId());
+    fileResource.setClientResourceID(fileData.getKey());
     fileResource.setResourceName(fileData.getFileName());
     fileResource.setResourceType(FileMimeType.getValue(fileData.getContentType()));
     fileResource.setSize(fileData.getCacheFileData().getCacheSize());

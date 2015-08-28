@@ -1,6 +1,0 @@
-#mariadb.jdbc.url=jdbc:mariadb://192.168.1.101:3305/lnsns
-#mariadb.jdbc.username=sns
-#mariadb.jdbc.password=lenote2013
-mariadb.jdbc.url=${mariadb.jdbc.url}
-mariadb.jdbc.username=sgs
-mariadb.jdbc.password=sgs2015

@@ -46,7 +46,7 @@ public class FileManageService implements FileStoreServiceIf {
    */
   public CommonFileData getFileResource(final String fileId) {
     CommonFileData fileResource = getFileResourceById(fileId, null, 1);
-    if (fileResource == null || fileResource.getCloudFileData().getKeyId() == null) {
+    if (fileResource == null || fileResource.getCloudFileData().getKey() == null) {
       return null;
     }
     return fileResource;
@@ -59,7 +59,8 @@ public class FileManageService implements FileStoreServiceIf {
   public void saveFileResource(final String clientResourceID, CommonFileData fileResource) {
     CommonFileData returnData = getFileResourceById(clientResourceID, null, 1);
     if (returnData == null) {
-      mongoDao.insert(FileDataConstant.INSERT_FILE, fileResource);
+      String resourceId=mongoDao.insert(FileDataConstant.INSERT_FILE, fileResource);
+      fileResource.setFileId(resourceId);
     } else {
       updateFileResource(clientResourceID, fileResource);
     }
@@ -112,6 +113,9 @@ public class FileManageService implements FileStoreServiceIf {
   }
 
   private CommonFileData getFileResourceById(String fileId, String userID, Integer... status) {
+    if (fileId == null) {
+      return null;
+    }
     Map<String, Object> map = new HashMap<String, Object>(3);
     map.put("fileId", fileId);
     if (userID != null && !"".equals(userID))

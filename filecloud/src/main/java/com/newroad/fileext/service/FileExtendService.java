@@ -30,8 +30,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
-import com.lenovo.pilot.util.CallbackData;
-import com.lenovo.pilot.util.PilotOssConstants;
 import com.newroad.fileext.dao.CloudFileExecutionCode;
 import com.newroad.fileext.dao.cos.COSExecutionTask;
 import com.newroad.fileext.data.model.CacheFileData;
@@ -51,6 +49,8 @@ import com.newroad.fileext.utilities.FileResourceException;
 import com.newroad.fileext.utilities.SystemProperties;
 import com.newroad.fileext.utilities.TransferObjectAssembler;
 import com.newroad.mongodb.orm.db.MongoDaoIf;
+import com.newroad.pilot.util.CallbackData;
+import com.newroad.pilot.util.PilotOssConstants;
 import com.newroad.util.apiresult.ReturnCode;
 import com.newroad.util.apiresult.ServiceResult;
 
@@ -82,7 +82,7 @@ public class FileExtendService implements FileExtendServiceIf {
     JSONObject tokenInfo = cloudManageService.getCloudToken(sessionUser);
     String token = tokenInfo.getString("token");
     CloudFileData cdata = new CloudFileData();
-    cdata.setKeyId((String) resourceInfo.get(FileDataConstant.RESOURCE_KEY_ID));
+    cdata.setKey((String) resourceInfo.get(FileDataConstant.RESOURCE_KEY_ID));
     // cdata.setLink((String)
     // resourceInfo.get(FileDataConstant.RESOURCE_LINK));
 
@@ -101,7 +101,7 @@ public class FileExtendService implements FileExtendServiceIf {
   public ServiceResult<JSONObject> uploadData(JSONObject sessionUser, Map resourceInfo) throws FileResourceException {
     ServiceResult<JSONObject> sr = new ServiceResult<JSONObject>();
     if (sessionUser == null) {
-      sr.setReturnCode(ReturnCode.AUTH_BAD);
+      sr.setReturnCode(ReturnCode.UNAUTHORIZED);
       logger.error("Authentication bad because sessionUser is null!");
       return sr;
     }
@@ -127,7 +127,7 @@ public class FileExtendService implements FileExtendServiceIf {
   public ServiceResult<JSONObject> downloadData(JSONObject sessionUser, Map resourceInfo) throws FileResourceException {
     ServiceResult<JSONObject> sr = new ServiceResult<JSONObject>();
     if (sessionUser == null) {
-      sr.setReturnCode(ReturnCode.AUTH_BAD);
+      sr.setReturnCode(ReturnCode.UNAUTHORIZED);
       logger.error("Authentication bad because sessionUser is null!");
       return sr;
     }
@@ -176,7 +176,7 @@ public class FileExtendService implements FileExtendServiceIf {
       throws FileResourceException {
     ServiceResult<JSONObject> sr = new ServiceResult<JSONObject>();
     if (sessionUser == null) {
-      sr.setReturnCode(ReturnCode.AUTH_BAD);
+      sr.setReturnCode(ReturnCode.UNAUTHORIZED);
       logger.error("Authentication bad because sessionUser is null!");
       return sr;
     }
@@ -220,7 +220,7 @@ public class FileExtendService implements FileExtendServiceIf {
       throws FileResourceException {
     ServiceResult<JSONObject> sr = new ServiceResult<JSONObject>();
     if (sessionUser == null) {
-      sr.setReturnCode(ReturnCode.AUTH_BAD);
+      sr.setReturnCode(ReturnCode.UNAUTHORIZED);
       logger.error("Authentication bad because sessionUser is null!");
       return sr;
     }
@@ -258,7 +258,7 @@ public class FileExtendService implements FileExtendServiceIf {
   public ServiceResult<JSONObject> getFileIcon(JSONObject sessionUser, Map resourceInfo) throws FileResourceException {
     ServiceResult<JSONObject> sr = new ServiceResult<JSONObject>();
     if (sessionUser == null) {
-      sr.setReturnCode(ReturnCode.AUTH_BAD);
+      sr.setReturnCode(ReturnCode.UNAUTHORIZED);
       logger.error("Authentication bad because sessionUser is null!");
       return sr;
     }
@@ -442,7 +442,7 @@ public class FileExtendService implements FileExtendServiceIf {
       JSONObject json = iter.next();
       CloudFileData cdata = new CloudFileData();
       JSONObject fileDataJSON = (JSONObject) json.get(FileDataConstant.FILE_DATE);
-      cdata.setKeyId((String) fileDataJSON.get(FileDataConstant.RESOURCE_KEY_ID));
+      cdata.setKey((String) fileDataJSON.get(FileDataConstant.RESOURCE_KEY_ID));
       cplList[i] = cdata;
       i++;
     }
@@ -518,7 +518,7 @@ public class FileExtendService implements FileExtendServiceIf {
       if (fileResource.getFileData().getCacheFileData().getFileCachePath() != null) {
         fileCachePath = fileResource.getFileData().getCacheFileData().getFileCachePath();
       } else {
-        String keyID = fileResource.getFileData().getKeyId();
+        String keyID = fileResource.getFileData().getKey();
         if (publicLink == null && fileResource.getFileData().getPublicLink() == null) {
           throw new FileResourceException("Couldn't find the correct public link of resource file which keyID is " + keyID + "!");
         }
@@ -578,7 +578,7 @@ public class FileExtendService implements FileExtendServiceIf {
     ServiceResult<List<NoteFileData>> sr = new ServiceResult<List<NoteFileData>>();
     String userID = (String) sessionUser.get("superNoteUserID");
     if (userID == null || "".equals(userID)) {
-      sr.setReturnCode(ReturnCode.AUTH_BAD);
+      sr.setReturnCode(ReturnCode.UNAUTHORIZED);
       logger.error("Authentication bad because userID is null or blank!");
       return sr;
     }
@@ -600,7 +600,7 @@ public class FileExtendService implements FileExtendServiceIf {
         NoteFileData fileResource = NoteFileData.create(userID,fileData);
 
         String clientResourceID = fileResource.getClientResourceID();
-        String keyId = fileData.getKeyId();
+        String keyId = fileData.getKey();
         // Save File in Cache
         InputStream input = new ByteArrayInputStream(fileData.getCacheFileData().getFileByte());
         String filecache = fileStoreService.saveFileOnLocal(input, keyId);
@@ -665,10 +665,10 @@ public class FileExtendService implements FileExtendServiceIf {
       return null;
     } catch (InterruptedException e) {
       logger.error("executeCallableCOSTask InterruptedException!", e);
-      throw new FileResourceException("Couldn't find the correct file " + fileData[0].getKeyId() + " from Cloud!");
+      throw new FileResourceException("Couldn't find the correct file " + fileData[0].getKey() + " from Cloud!");
     } catch (ExecutionException e) {
       logger.error("executeCallableCOSTask ExecutionException!", e);
-      throw new FileResourceException("Couldn't find the correct file " + fileData[0].getKeyId() + " from Cloud!");
+      throw new FileResourceException("Couldn't find the correct file " + fileData[0].getKey() + " from Cloud!");
     }
   }
 
