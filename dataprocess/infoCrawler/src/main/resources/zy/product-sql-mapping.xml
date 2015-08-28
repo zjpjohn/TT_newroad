@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lenovo.zy.info.crawler.dao.ProductDaoIf">
+
+	<resultMap id="product" type="com.lenovo.zy.info.crawler.domain.Product">
+		<result column="id" property="productId" />
+		<result column="name" property="productName" />
+		<result column="status" property="status" />
+		<result column="introduction" property="introduction" />
+		<result column="price" property="price" />
+		<result column="source" property="source" />
+		<result column="summary" property="summary" />
+		<result column="fcount" property="favoriteCount" />
+		<result column="ccount" property="commentCount" />
+		<result column="acount" property="auditCount" />
+		<result column="score" property="score" />
+		<result column="url" property="productLink" />
+		<result column="puid" property="publishUserId" />
+		<result column="ptime" property="publishTime" />
+		<result column="auid" property="auditUserId" />
+		<result column="atime" property="auditTime" />
+		<result column="isTrial" property="isTrial" />
+		<result column="lastUpdateTime" property="lastUpdateTime" />
+	</resultMap>
+	
+	 <select id="selectProductList" resultType="com.lenovo.zy.info.crawler.domain.Product">
+        select * from zy_product order by id desc
+    </select>
+
+	<!-- 保存帐号信息 -->
+	<insert id="insertProduct" useGeneratedKeys="true" keyProperty="productId" parameterType="com.lenovo.zy.info.crawler.domain.Product">
+		insert into
+		zy_product(name, status, introduction, source, summary, url,puid,ptime,auid,atime,isTrial,lastUpdateTime)
+		values (#{productName}, #{status}, #{introduction},  #{source}, #{summary}, #{productLink},#{publishUserId}, now(),
+		#{auditUserId},  now(), #{isTrial}, now())
+	</insert>
+
+
+</mapper>   

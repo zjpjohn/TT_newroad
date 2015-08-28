@@ -1,0 +1,1015 @@
+<?xml version="1.0" encoding="utf-8"?>
+<site name="外滩" timestamp="1376562964" audio="NO" doubled="YES" location="NO">
+  <map width="3200" height="3429">
+    <anchor x="0" y="0">
+      <latitude>0</latitude>
+      <longitude>0</longitude>
+    </anchor>
+    <anchor x="0" y="0">
+      <latitude>0</latitude>
+      <longitude>0</longitude>
+    </anchor>
+    <anchor x="0" y="0">
+      <latitude>0</latitude>
+      <longitude>0</longitude>
+    </anchor>
+  </map>
+  <collection>
+    <item name="景点导语" icon="" description="">collection/infocenter.html</item>
+    <item name="历史文化" icon="" description="">collection/history.html</item>
+    <item name="交通信息" icon="" description="">collection/traffic.html</item>
+    <transport>
+      <address>中山东一路</address>
+      <subway>地铁2号线，南京东路下</subway>
+      <bus>观光巴士1路旅游线</bus>
+      <landmark></landmark>
+      <latitude>31.234600067138672</latitude>
+      <longitude>121.49099731445312</longitude>
+      <taxi>collection/taxi.html</taxi>
+      <taxidest>中山东一路</taxidest>
+      <taxitel>021-62580000</taxitel>
+    </transport>
+  </collection>
+  <more/>
+  <points>
+    <point x="397" y="1701">
+      <id>739</id>
+      <latitude>31.23539</latitude>
+      <longitude>121.48661</longitude>
+      <title>亚细亚大楼</title>
+      <keyword/>
+      <type>attract</type>
+      <level>0</level>
+      <rating>10</rating>
+      <ratecount>441</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG001_1316490439.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG001_1316490439.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI001.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="432" y="1627">
+      <id>764</id>
+      <latitude>31.23609</latitude>
+      <longitude>121.48645</longitude>
+      <title>上海总会大楼</title>
+      <keyword/>
+      <type>attract</type>
+      <level>0</level>
+      <rating>8</rating>
+      <ratecount>318</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG002_1316491004.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG002_1316491004.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI002.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="464" y="1570">
+      <id>770</id>
+      <latitude>31.23646</latitude>
+      <longitude>121.48625</longitude>
+      <title>有利大楼</title>
+      <keyword/>
+      <type>attract</type>
+      <level>0</level>
+      <rating>10</rating>
+      <ratecount>385</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG003_1316588643.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG003_1316588643.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI003.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="486" y="1521">
+      <id>782</id>
+      <latitude>31.23659</latitude>
+      <longitude>121.48616</longitude>
+      <title>日清大楼</title>
+      <keyword/>
+      <type>attract</type>
+      <level>0</level>
+      <rating>10</rating>
+      <ratecount>345</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG004_1316589007.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG004_1316589007.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI004.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="390" y="1391">
+      <id>785</id>
+      <latitude>31.2368</latitude>
+      <longitude>121.48606</longitude>
+      <title>中国通商银行大楼</title>
+      <keyword/>
+      <type>attract</type>
+      <level>0</level>
+      <rating>10</rating>
+      <ratecount>483</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG005_1316492294.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG005_1316492294.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI005.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="531" y="1403">
+      <id>791</id>
+      <latitude>31.23708</latitude>
+      <longitude>121.4859</longitude>
+      <title>电报大楼</title>
+      <keyword/>
+      <type>attract</type>
+      <level>0</level>
+      <rating>10</rating>
+      <ratecount>146</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG006_1316493123.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG006_1316493123.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI006.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="529" y="1126">
+      <id>805</id>
+      <latitude>31.23793</latitude>
+      <longitude>121.48556</longitude>
+      <title>汇丰银行大楼</title>
+      <keyword/>
+      <type>attract</type>
+      <level>0</level>
+      <rating>10</rating>
+      <ratecount>127</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG008_1316499628.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG008_1316499628.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI008.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="717" y="1178">
+      <id>807</id>
+      <latitude>31.23864</latitude>
+      <longitude>121.4855</longitude>
+      <title>海关大楼</title>
+      <keyword/>
+      <type>attract</type>
+      <level>0</level>
+      <rating>10</rating>
+      <ratecount>242</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG009_1316589149.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG009_1316589149.jpg</img>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG036_1316589693.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG036_1316589693.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI009.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="664" y="997">
+      <id>808</id>
+      <latitude>31.23906</latitude>
+      <longitude>121.48549</longitude>
+      <title>交通银行大楼</title>
+      <keyword/>
+      <type>attract</type>
+      <level>1</level>
+      <rating>8</rating>
+      <ratecount>232</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG010_1316589346.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG010_1316589346.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI010.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="859" y="1048">
+      <id>809</id>
+      <latitude>31.23958</latitude>
+      <longitude>121.4853</longitude>
+      <title>上海外汇交易中心</title>
+      <keyword/>
+      <type>attract</type>
+      <level>0</level>
+      <rating>10</rating>
+      <ratecount>416</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG011_1316500783.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG011_1316500783.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI011.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="896" y="992">
+      <id>810</id>
+      <latitude>31.23998</latitude>
+      <longitude>121.48532</longitude>
+      <title>台湾银行大楼</title>
+      <keyword/>
+      <type>attract</type>
+      <level>0</level>
+      <rating>8</rating>
+      <ratecount>462</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG012_1316501287.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG012_1316501287.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI012.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="905" y="882">
+      <id>811</id>
+      <latitude>31.24018</latitude>
+      <longitude>121.48528</longitude>
+      <title>友邦大厦</title>
+      <keyword/>
+      <type>attract</type>
+      <level>0</level>
+      <rating>8</rating>
+      <ratecount>275</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG013_1316589579.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG013_1316589579.jpg</img>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG035_1316589579.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG035_1316589579.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI013.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="965" y="880">
+      <id>814</id>
+      <latitude>31.24047</latitude>
+      <longitude>121.48499</longitude>
+      <title>中山东一路18号</title>
+      <keyword/>
+      <type>attract</type>
+      <level>1</level>
+      <rating>8</rating>
+      <ratecount>231</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG014_1316502621.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG014_1316502621.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI014.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="880" y="784">
+      <id>815</id>
+      <latitude>31.24073</latitude>
+      <longitude>121.48489</longitude>
+      <title>中央饭店 和平饭店南楼</title>
+      <keyword/>
+      <type>attract</type>
+      <level>1</level>
+      <rating>10</rating>
+      <ratecount>214</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG015_1316502850.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG015_1316502850.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI015.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="958" y="723">
+      <id>816</id>
+      <latitude>31.24109</latitude>
+      <longitude>121.48522</longitude>
+      <title>华懋饭店 和平饭店北楼</title>
+      <keyword/>
+      <type>attract</type>
+      <level>1</level>
+      <rating>10</rating>
+      <ratecount>118</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG016_1316590250.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG016_1316590250.jpg</img>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG037_1316590251.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG037_1316590251.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI016.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="2031" y="202">
+      <id>817</id>
+      <latitude>31.2461</latitude>
+      <longitude>121.48542</longitude>
+      <title>百老汇大厦 上海大厦</title>
+      <keyword/>
+      <type>attract</type>
+      <level>0</level>
+      <rating>10</rating>
+      <ratecount>283</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG017_1316503765.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG017_1316503765.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI017.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="538" y="1825">
+      <id>818</id>
+      <latitude>31.235145042015</latitude>
+      <longitude>121.48776388159</longitude>
+      <title>外滩信号台</title>
+      <keyword/>
+      <type>attract</type>
+      <level>0</level>
+      <rating>8</rating>
+      <ratecount>170</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG018_1316590563.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG018_1316590563.jpg</img>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG038_1316590563.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG038_1316590563.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI018.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="1152" y="805">
+      <id>820</id>
+      <latitude>31.24152</latitude>
+      <longitude>121.48523</longitude>
+      <title>中国银行大楼</title>
+      <keyword/>
+      <type>attract</type>
+      <level>1</level>
+      <rating>10</rating>
+      <ratecount>136</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG019_1316591071.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG019_1316591071.jpg</img>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG039_1316591072.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG039_1316591072.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI019.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="1147" y="645">
+      <id>822</id>
+      <latitude>31.24176</latitude>
+      <longitude>121.48535</longitude>
+      <title>中国工商银行大楼</title>
+      <keyword/>
+      <type>attract</type>
+      <level>1</level>
+      <rating>10</rating>
+      <ratecount>110</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG020_1316591559.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG020_1316591559.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI020.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="1256" y="759">
+      <id>825</id>
+      <latitude>31.24198</latitude>
+      <longitude>121.48537</longitude>
+      <title>扬子大楼 中国农业银行</title>
+      <keyword/>
+      <type>attract</type>
+      <level>1</level>
+      <rating>10</rating>
+      <ratecount>103</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG021_1316592071.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG021_1316592071.jpg</img>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG040_1316592075.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG040_1316592075.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI021.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="1306" y="640">
+      <id>830</id>
+      <latitude>31.2423</latitude>
+      <longitude>121.48548</longitude>
+      <title>怡和洋行 外贸大楼</title>
+      <keyword/>
+      <type>attract</type>
+      <level>0</level>
+      <rating>10</rating>
+      <ratecount>375</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG022_1316505198.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG022_1316505198.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI022.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="1388" y="549">
+      <id>833</id>
+      <latitude>31.24304</latitude>
+      <longitude>121.48556</longitude>
+      <title>中国光大银行上海分行</title>
+      <keyword/>
+      <type>attract</type>
+      <level>1</level>
+      <rating>10</rating>
+      <ratecount>243</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG023_1316505413.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG023_1316505413.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI023.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="1461" y="513">
+      <id>835</id>
+      <latitude>31.243610277778</latitude>
+      <longitude>121.48442805556</longitude>
+      <title>半岛酒店</title>
+      <keyword/>
+      <type>attract</type>
+      <level>1</level>
+      <rating>10</rating>
+      <ratecount>271</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG024_1316505604.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG024_1316505604.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI024.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="1854" y="376">
+      <id>836</id>
+      <latitude>31.24508</latitude>
+      <longitude>121.48566</longitude>
+      <title>外白渡桥</title>
+      <keyword/>
+      <type>attract</type>
+      <level>0</level>
+      <rating>10</rating>
+      <ratecount>377</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG025_1316505719.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG025_1316505719.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI025.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="517" y="3208">
+      <id>840</id>
+      <latitude>31.22782</latitude>
+      <longitude>121.49646</longitude>
+      <title>十六铺码头</title>
+      <keyword/>
+      <type>attract</type>
+      <level>0</level>
+      <rating>10</rating>
+      <ratecount>299</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG026_1316505909.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG026_1316505909.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI026.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="1181" y="996">
+      <id>850</id>
+      <latitude>31.24225</latitude>
+      <longitude>121.48632</longitude>
+      <title>情人墙</title>
+      <keyword/>
+      <type>attract</type>
+      <level>0</level>
+      <rating>8</rating>
+      <ratecount>239</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG031_1316507659.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG031_1316507659.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI031.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="1393" y="894">
+      <id>851</id>
+      <latitude>31.242200568815</latitude>
+      <longitude>121.48592170627</longitude>
+      <title>外滩观光隧道</title>
+      <keyword/>
+      <type>attract</type>
+      <level>0</level>
+      <rating>10</rating>
+      <ratecount>107</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG032_1316507896.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG032_1316507896.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI032.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="1318" y="540">
+      <id>852</id>
+      <latitude>31.24274</latitude>
+      <longitude>121.48548</longitude>
+      <title>格林邮船大楼</title>
+      <keyword/>
+      <type>attract</type>
+      <level>0</level>
+      <rating>10</rating>
+      <ratecount>388</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG033_1316592811.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG033_1316592811.jpg</img>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG041_1316592812.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG041_1316592812.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI033.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="1823" y="640">
+      <id>855</id>
+      <latitude>31.244096664878</latitude>
+      <longitude>121.48691925413</longitude>
+      <title>外滩历史纪念馆</title>
+      <keyword/>
+      <type>attract</type>
+      <level>0</level>
+      <rating>10</rating>
+      <ratecount>459</ratecount>
+      <album>
+        <img thumbs="https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fthumbs%2FIMG034_1316508266.jpg" title="">https://service.itouchchina.com/tongtiansvcs/viewimg/37/%2Ftongtian%2Farea37%2Fv3%2Fmedia%2Fimages%2FIMG034_1316508266.jpg</img>
+      </album>
+      <urls>
+        <url>content/POI034.html</url>
+      </urls>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5800</id>
+      <latitude>31.238794911109</latitude>
+      <longitude>121.49135002392</longitude>
+      <title>滨江公园</title>
+      <keyword/>
+      <type>attract</type>
+      <level>1</level>
+      <rating>10</rating>
+      <ratecount>493</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5801</id>
+      <latitude>31.23869</latitude>
+      <longitude>121.48602</longitude>
+      <title>雕塑风云</title>
+      <keyword/>
+      <type>attract</type>
+      <level>1</level>
+      <rating>10</rating>
+      <ratecount>207</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5802</id>
+      <latitude>31.24447</latitude>
+      <longitude>121.4847</longitude>
+      <title>红石纪念碑</title>
+      <keyword/>
+      <type>attract</type>
+      <level>1</level>
+      <rating>10</rating>
+      <ratecount>400</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5803</id>
+      <latitude>31.23866</latitude>
+      <longitude>121.48599</longitude>
+      <title>赫德铜像</title>
+      <keyword/>
+      <type>attract</type>
+      <level>1</level>
+      <rating>10</rating>
+      <ratecount>311</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5804</id>
+      <latitude>31.24461</latitude>
+      <longitude>121.48577</longitude>
+      <title>常胜军纪念碑</title>
+      <keyword/>
+      <type>attract</type>
+      <level>1</level>
+      <rating>10</rating>
+      <ratecount>493</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5805</id>
+      <latitude>31.24394</latitude>
+      <longitude>121.48618</longitude>
+      <title>黄浦公园</title>
+      <keyword/>
+      <type>attract</type>
+      <level>1</level>
+      <rating>10</rating>
+      <ratecount>244</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5806</id>
+      <latitude>31.24419</latitude>
+      <longitude>121.4867</longitude>
+      <title>上海百年风云大型花岗石浮雕</title>
+      <keyword/>
+      <type>attract</type>
+      <level>1</level>
+      <rating>10</rating>
+      <ratecount>293</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5807</id>
+      <latitude>31.243</latitude>
+      <longitude>121.4863</longitude>
+      <title>浦江潮</title>
+      <keyword/>
+      <type>attract</type>
+      <level>1</level>
+      <rating>10</rating>
+      <ratecount>139</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5808</id>
+      <latitude>31.2443</latitude>
+      <longitude>121.48702</longitude>
+      <title>人民英雄纪念碑</title>
+      <keyword/>
+      <type>attract</type>
+      <level>1</level>
+      <rating>10</rating>
+      <ratecount>272</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5809</id>
+      <latitude>31.23387</latitude>
+      <longitude>121.48904</longitude>
+      <title>城市雕塑群</title>
+      <keyword/>
+      <type>attract</type>
+      <level>1</level>
+      <rating>10</rating>
+      <ratecount>436</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5810</id>
+      <latitude>31.24184</latitude>
+      <longitude>121.48478</longitude>
+      <title>万国建筑博览群</title>
+      <keyword/>
+      <type>attract</type>
+      <level>2</level>
+      <rating>10</rating>
+      <ratecount>271</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5811</id>
+      <latitude>31.24037</latitude>
+      <longitude>121.4852</longitude>
+      <title>麦加利银行大楼</title>
+      <keyword/>
+      <type>attract</type>
+      <level>2</level>
+      <rating>10</rating>
+      <ratecount>188</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5812</id>
+      <latitude>31.23736</latitude>
+      <longitude>121.48574</longitude>
+      <title>轮船招商局大楼</title>
+      <keyword/>
+      <type>attract</type>
+      <level>2</level>
+      <rating>10</rating>
+      <ratecount>397</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5813</id>
+      <latitude>31.24583</latitude>
+      <longitude>121.48609</longitude>
+      <title>俄罗斯总领事馆</title>
+      <keyword/>
+      <type>attract</type>
+      <level>2</level>
+      <rating>10</rating>
+      <ratecount>446</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5814</id>
+      <latitude>31.23614</latitude>
+      <longitude>121.48622</longitude>
+      <title>Hugo Boss</title>
+      <keyword/>
+      <type>attract</type>
+      <level>2</level>
+      <rating>10</rating>
+      <ratecount>320</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5815</id>
+      <latitude>31.23725</latitude>
+      <longitude>121.48592</longitude>
+      <title>Dolce</title>
+      <keyword/>
+      <type>attract</type>
+      <level>2</level>
+      <rating>10</rating>
+      <ratecount>111</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5816</id>
+      <latitude>31.24047</latitude>
+      <longitude>121.48499</longitude>
+      <title>Cartier旗舰店</title>
+      <keyword/>
+      <type>attract</type>
+      <level>2</level>
+      <rating>10</rating>
+      <ratecount>465</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5817</id>
+      <latitude>31.23614</latitude>
+      <longitude>121.48622</longitude>
+      <title>Armani上海中国旗舰店</title>
+      <keyword/>
+      <type>attract</type>
+      <level>2</level>
+      <rating>10</rating>
+      <ratecount>102</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5818</id>
+      <latitude>31.24047</latitude>
+      <longitude>121.48499</longitude>
+      <title>Vertu全新概念店</title>
+      <keyword/>
+      <type>attract</type>
+      <level>2</level>
+      <rating>10</rating>
+      <ratecount>181</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5819</id>
+      <latitude>31.24047</latitude>
+      <longitude>121.48499</longitude>
+      <title>Zegna</title>
+      <keyword/>
+      <type>attract</type>
+      <level>2</level>
+      <rating>10</rating>
+      <ratecount>100</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5820</id>
+      <latitude>31.23888</latitude>
+      <longitude>121.48612</longitude>
+      <title>瀑布钟</title>
+      <keyword/>
+      <type>attract</type>
+      <level>2</level>
+      <rating>10</rating>
+      <ratecount>112</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5821</id>
+      <latitude>31.24094</latitude>
+      <longitude>121.48581</longitude>
+      <title>陈毅广场</title>
+      <keyword/>
+      <type>attract</type>
+      <level>2</level>
+      <rating>10</rating>
+      <ratecount>185</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5822</id>
+      <latitude>31.24107</latitude>
+      <longitude>121.48574</longitude>
+      <title>喷水池</title>
+      <keyword/>
+      <type>attract</type>
+      <level>2</level>
+      <rating>10</rating>
+      <ratecount>376</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5823</id>
+      <latitude>31.24135</latitude>
+      <longitude>121.48592</longitude>
+      <title>陈毅塑像</title>
+      <keyword/>
+      <type>attract</type>
+      <level>2</level>
+      <rating>10</rating>
+      <ratecount>255</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5824</id>
+      <latitude>31.24433652744</latitude>
+      <longitude>121.48445156849</longitude>
+      <title>英国领事馆</title>
+      <keyword/>
+      <type>attract</type>
+      <level>2</level>
+      <rating>10</rating>
+      <ratecount>357</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5825</id>
+      <latitude>31.24267</latitude>
+      <longitude>121.48609</longitude>
+      <title>售票点</title>
+      <keyword/>
+      <type>ticket</type>
+      <level>2</level>
+      <rating>10</rating>
+      <ratecount>253</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5826</id>
+      <latitude>31.236166111111</latitude>
+      <longitude>121.48632055556</longitude>
+      <title>外滩三号</title>
+      <keyword/>
+      <type>restaurant</type>
+      <level>2</level>
+      <rating>10</rating>
+      <ratecount>455</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5827</id>
+      <latitude>31.240736111111</latitude>
+      <longitude>121.48521416667</longitude>
+      <title>和平饭店</title>
+      <keyword/>
+      <type>restaurant</type>
+      <level>2</level>
+      <rating>10</rating>
+      <ratecount>497</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5828</id>
+      <latitude>31.236047777778</latitude>
+      <longitude>121.4864425</longitude>
+      <title>上海外滩华尔道夫酒店</title>
+      <keyword/>
+      <type>restaurant</type>
+      <level>2</level>
+      <rating>10</rating>
+      <ratecount>260</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5829</id>
+      <latitude>31.237373333333</latitude>
+      <longitude>121.4854125</longitude>
+      <title>上海船长青年酒店</title>
+      <keyword/>
+      <type>restaurant</type>
+      <level>2</level>
+      <rating>10</rating>
+      <ratecount>342</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5830</id>
+      <latitude>31.24218</latitude>
+      <longitude>121.48596</longitude>
+      <title>出入口</title>
+      <keyword/>
+      <type>none</type>
+      <level>2</level>
+      <rating>10</rating>
+      <ratecount>455</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+    <point x="0" y="0">
+      <id>5831</id>
+      <latitude>31.23936</latitude>
+      <longitude>121.48545</longitude>
+      <title>游客服务</title>
+      <keyword/>
+      <type>none</type>
+      <level>2</level>
+      <rating>10</rating>
+      <ratecount>253</ratecount>
+      <album/>
+      <urls/>
+      <audios/>
+    </point>
+  </points>
+  <defaultSetOnType>all</defaultSetOnType>
+  <routes count="0"/>
+</site>

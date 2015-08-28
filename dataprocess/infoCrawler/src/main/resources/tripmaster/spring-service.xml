@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.2.xsd
+    http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx-3.2.xsd 
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+    http://www.springframework.org/schema/task 
+    http://www.springframework.org/schema/task/spring-task-3.2.xsd
+    http://www.springframework.org/schema/jdbc   
+    http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd  
+    http://www.springframework.org/schema/util  
+    http://www.springframework.org/schema/util/spring-util-3.2.xsd
+    ">
+
+	<!-- 属性文件的配置 -->
+	<bean id="propertiesConfig"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:tripmaster/mongodb.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="springContextUtil" class="com.newroad.tripmaster.info.crawler.SpringContextUtil"/>
+
+	<!-- mongodb.properties -->
+	<bean id="mongo" class="com.newroad.tripmaster.info.crawler.dbmanager.MongoManager">
+		<constructor-arg name="nodeiplist" value="${product.mongodb.nodeiplist}" />
+		<constructor-arg name="nodeportlist"
+			value="${product.mongodb.nodeportlist}" />
+		<constructor-arg name="dbName" value="${product.mongodb.dbname}" />
+		<constructor-arg name="userName" value="${product.mongodb.username}" />
+		<constructor-arg name="passWord" value="${product.mongodb.password}" />
+		<constructor-arg name="connectionsPerHost"
+			value="${product.mongodb.connectionsperhost}" />
+		<constructor-arg name="threadsAllowedToBlock"
+			value="${product.mongodb.threadsallowedtoblock}" />
+		<constructor-arg name="connectionTimeOut"
+			value="${product.mongodb.connectiontimeout}" />
+		<constructor-arg name="maxRetryTime"
+			value="${product.mongodb.maxretrytime}" />
+		<constructor-arg name="socketTimeOut"
+			value="${product.mongodb.sockettimeout}" />
+	</bean>
+
+	<bean id="morphia" class="com.newroad.tripmaster.info.crawler.dbmanager.MorphiaFactoryBean">
+		<!-- 指定要扫描的POJO包路径 -->
+		<property name="mapPackages">
+			<array>
+				<value>com.newroad.tripmaster.info.crawler.domain</value>
+			</array>
+		</property>
+
+		<!-- 指定要映射的类 -->
+		<!-- <property name="mapClasses"> <array> <value>me.watchzerg.test.morphia.pojo.Hotel</value> 
+			<value>me.watchzerg.test.morphia.pojo.Address</value> </array> </property> -->
+
+		<!-- 扫描包时是否忽略不可用的类，默认为false -->
+		<!-- <property name="ignoreInvalidClasses" value="false"/> -->
+	</bean>
+
+	<!-- 使用工厂创建datastore，同时完成index和caps的确认操作 -->
+	<bean id="datastore" class="com.newroad.tripmaster.info.crawler.dbmanager.DatastoreFactoryBean">
+		<property name="morphia" ref="morphia" />
+		<property name="mongo" ref="mongo" />
+		<!-- collection的名称 -->
+		<property name="dbName" value="${product.mongodb.dbname}" />
+		<!-- 是否进行index和caps的确认操作，默认为flase -->
+		<property name="toEnsureIndexes" value="true" />
+		<property name="toEnsureCaps" value="true" />
+	</bean>
+
+	<!--<bean id="clientHttpRequestFactory" class="org.springframework.http.client.HttpComponentsClientHttpRequestFactory"> 
+		<constructor-arg ref="httpClient" /> <property name="connectTimeout" value="30000" 
+		/> <property name="readTimeout" value="30000" /> </bean> -->
+
+	<!-- spring3mvc -->
+	<!-- <mvc:annotation-driven />
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="true">
+			<ref bean="stringHttpMessageConverter" />
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+ 	
+ 	
+	<bean id="stringHttpMessageConverter"
+		class="org.springframework.http.converter.StringHttpMessageConverter">
+		<property name="supportedMediaTypes" value="application/json;charset=UTF-8" />
+		<property name="writeAcceptCharset" value="false" />
+	</bean>
+
+	<util:list id="messageConvertersList">
+		<ref bean="stringHttpMessageConverter" />
+	</util:list>
+
+	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate"
+		p:messageConverters-ref="messageConvertersList">
+		<constructor-arg>
+			<bean
+				class="org.springframework.http.client.HttpComponentsClientHttpRequestFactory">
+				<constructor-arg ref="httpClient" />
+			</bean>
+		</constructor-arg>
+	</bean>-->
+
+
+	<bean id="siteDao" class="com.newroad.tripmaster.info.crawler.dao.SiteDao">
+		<constructor-arg ref="datastore" />
+	</bean>
+	
+
+	<bean id="scenicDao" class="com.newroad.tripmaster.info.crawler.dao.ScenicDao">
+		<constructor-arg ref="datastore" />
+	</bean>
+
+	<!-- 线程池 -->
+	<bean id="taskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="50" /> <!-- 最小线程数 -->
+		<property name="keepAliveSeconds" value="300" /><!-- seconds -->
+		<property name="maxPoolSize" value="200" /> <!-- 最大线程数 -->
+		<property name="queueCapacity" value="500" /> <!-- 等待队列大小 -->
+	</bean>
+
+	<!-- 定时器开关 开始 -->
+	<task:annotation-driven />
+
+	<!-- 使Spring注解 -->
+	<context:annotation-config />
+	<!-- 让Spring通过自动扫描来查询和管理Bean -->
+	<context:component-scan base-package="com.newroad.tripmaster.info.crawler" />
+</beans>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lenovo.zy.info.crawler.dao.ProductCaptureDaoIf">
+
+	<resultMap id="product" type="com.lenovo.zy.info.crawler.domain.ProductCapture">
+		<result column="id" property="captureId" />
+		<result column="title" property="title" />
+		<result column="link" property="link" />
+		<result column="source" property="source" />
+		<result column="name" property="name" />
+		<result column="type" property="type" />
+		<result column="picture" property="pictureLink" />
+		<result column="content" property="content" />
+		<result column="price" property="price" />
+		<result column="payLink" property="payLink" />
+		<result column="setting" property="setting" />
+		<result column="tag" property="tag" />
+		<result column="status" property="status" />
+		<result column="createTime" property="createTime" />
+	</resultMap>
+	
+	<select id="countProductCaptures" resultType="java.lang.Integer">
+		SELECT count(id) FROM product_capture WHERE status=#{status}
+	</select>    
+	
+	<select id="selectOneProductCapture" resultMap="product">
+        SELECT id,title,link,source,name,type,picture,content,price,payLink,setting,tag,status,createTime FROM product_capture WHERE id=#{captureId}
+    </select>
+	
+	<select id="selectProductCaptures" resultMap="product">
+        SELECT id,title,link,source,name,type,picture,content,price,payLink,setting,tag,status,createTime FROM product_capture WHERE status=#{status} limit #{offset}, #{limit}
+    </select>
+    
+	<update id="updateProductCaptureStatus">
+	    UPDATE product_capture SET status=#{status} WHERE id=#{id}
+	</update>
+    
+	<sql id="cmsSync">
+	  insert into sgswp.wp_posts(post_author,post_title, post_content, post_status, post_date,post_excerpt, to_ping, pinged, post_content_filtered, subject_id,subject_type) 
+		select 1,name,introduction,'publish',now(),'','','','',id,'1'  
+		  from sgs.zy_product a 
+		where a.status='0'
+		  and not exists ( 
+			select 1 from sgswp.wp_posts b where a.id=b.subject_id and b.subject_type='1' 
+		);  
+	</sql>    
+
+</mapper>   

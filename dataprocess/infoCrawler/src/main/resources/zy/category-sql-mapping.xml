@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lenovo.zy.info.crawler.dao.ProductCategoryDaoIf">
+
+	<resultMap id="banner" type="com.lenovo.zy.info.crawler.domain.ProductCategory">
+		<result column="id" property="productCategoryId" />
+		<result column="cateID" property="categoryId" />
+		<result column="pid" property="productId" />
+	</resultMap>
+
+	<!-- 保存帐号信息 -->
+	<insert id="insertProductCategory" useGeneratedKeys="true" keyProperty="productCategoryId" parameterType="com.lenovo.zy.info.crawler.domain.ProductCategory">
+		insert into
+		zy_product_category(cateID, pid)
+		values (#{categoryId}, #{productId})
+	</insert>
+</mapper>   

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lenovo.zy.info.crawler.wp.dao.WPPostDaoIf">
+
+	<insert id="insertWPPost" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.lenovo.zy.info.crawler.wp.domain.WPPost">
+		INSERT INTO
+		sgswp.wp_posts(
+		post_author, post_date, post_date_gmt, post_content, post_title, post_excerpt,
+		post_status, post_name, to_ping, pinged, post_modified,
+		post_modified_gmt,
+		post_content_filtered, post_parent, guid, post_type, post_mime_type,subject_type)
+		VALUES
+		(#{postAuthor},now(),now(),
+		#{postContent}, #{postTitle},
+		#{postExcerpt}, #{postStatus},
+		#{postName}, #{toPing}, #{pinged},
+		now(),now(),#{postContentFiltered},#{postParent},
+		#{guid}, #{postType},
+		#{postMimeType},#{subjectType})
+	</insert>
+</mapper>   

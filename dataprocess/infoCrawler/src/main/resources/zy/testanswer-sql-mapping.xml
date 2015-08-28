@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lenovo.zy.info.crawler.dao.TestAnswerDaoIf">
+
+	<resultMap id="testAnswer" type="com.lenovo.zy.info.crawler.domain.TestAnswer">
+		<result column="id" property="answerId" />
+		<result column="testID" property="testId" />
+		<result column="answer" property="answer" />
+		<result column="description" property="description" />
+		<result column="meaning" property="meaning" />
+		<result column="createTime" property="createTime" />
+	</resultMap>
+
+	<!-- 保存帐号信息 -->
+	<insert id="insertTestAnswer" useGeneratedKeys="true" keyProperty="answerId" parameterType="com.lenovo.zy.info.crawler.domain.TestAnswer">
+		insert into
+		zy_test_answer(testID, answer, description, meaning, createTime)
+		values (#{testId}, #{answer}, #{description},  #{meaning}, now())
+	</insert>
+
+</mapper>   

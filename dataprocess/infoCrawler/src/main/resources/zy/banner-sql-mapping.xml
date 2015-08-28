@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lenovo.zy.info.crawler.dao.ProductBannerDaoIf">
+
+	<resultMap id="banner" type="com.lenovo.zy.info.crawler.domain.ProductBanner">
+		<result column="id" property="productBannerId" />
+		<result column="pid" property="productId" />
+		<result column="photoID" property="photoId" />
+	</resultMap>
+
+	<!-- 保存帐号信息 -->
+	<insert id="insertProductBanner" useGeneratedKeys="true" keyProperty="productBannerId" parameterType="com.lenovo.zy.info.crawler.domain.ProductBanner">
+		insert into
+		zy_product_banner(pid, photoID)
+		values (#{productId}, #{photoId})
+	</insert>
+</mapper>   
