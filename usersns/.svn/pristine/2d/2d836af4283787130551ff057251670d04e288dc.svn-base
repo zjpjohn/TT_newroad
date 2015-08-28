@@ -1,2 +1,0 @@
-application.tripmaster.host=${application.tripmaster.host}
-application.filecloud.host=${application.filecloud.host}

@@ -1,3 +1,0 @@
-mariadb.jdbc.url=${product.mariadb.url}
-mariadb.jdbc.username=${product.mariadb.username}
-mariadb.jdbc.password=${product.mariadb.password}

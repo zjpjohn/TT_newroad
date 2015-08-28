@@ -1,8 +1,0 @@
-product.mariadb.url=jdbc:mariadb://123.57.141.24:3306/user_sns
-product.mariadb.username=xingzhe
-product.mariadb.password=xingzhe2015
-
-couchbase.server.nodelist=123.57.141.24:11311
-
-application.filecloud.host=http://localhost/cos/
-application.tripmaster.host=http://localhost/supernote/
