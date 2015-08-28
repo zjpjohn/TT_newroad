@@ -1,0 +1,89 @@
+package com.newroad.tripmaster.dao.pojo.trip;
+
+import java.io.Serializable;
+
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
+
+@Entity(value = "tripNotice", noClassnameStored = true)
+public class TripNotice implements Serializable {
+
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 7759365951999813647L;
+
+  @Id
+  private String noticeId;
+
+  private String noticeName;
+
+  private String noticeType;
+
+  private String noticeContent;
+
+  private String tripProductId;
+
+  private Long createTime;
+
+  private Long updateTime;
+
+
+  public String getNoticeId() {
+    return noticeId;
+  }
+
+  public void setNoticeId(String noticeId) {
+    this.noticeId = noticeId;
+  }
+
+  public String getNoticeName() {
+    return noticeName;
+  }
+
+  public void setNoticeName(String noticeName) {
+    this.noticeName = noticeName;
+  }
+
+  public String getNoticeType() {
+    return noticeType;
+  }
+
+  public void setNoticeType(String noticeType) {
+    this.noticeType = noticeType;
+  }
+
+  public String getNoticeContent() {
+    return noticeContent;
+  }
+
+  public void setNoticeContent(String noticeContent) {
+    this.noticeContent = noticeContent;
+  }
+
+  public String getTripProductId() {
+    return tripProductId;
+  }
+
+  public void setTripProductId(String tripProductId) {
+    this.tripProductId = tripProductId;
+  }
+
+  public Long getCreateTime() {
+    return createTime;
+  }
+
+  public void setCreateTime(Long createTime) {
+    this.createTime = createTime;
+  }
+
+  public Long getUpdateTime() {
+    return updateTime;
+  }
+
+  public void setUpdateTime(Long updateTime) {
+    this.updateTime = updateTime;
+  }
+
+
+}

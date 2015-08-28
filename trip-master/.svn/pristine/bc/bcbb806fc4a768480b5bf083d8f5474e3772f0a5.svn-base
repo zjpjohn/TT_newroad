@@ -1,0 +1,20 @@
+package com.newroad.tripmaster.util;
+
+public enum ProductFeatureDict {
+    ZHE(1,"zhe"),
+    SU(2,"su"),
+    QIN(3,"qin"),
+    QI(4,"qi"),
+    CHI(5,"chi"),
+    MI(6,"mi"),
+    XUE(7,"xue"),
+    YAN(8,"yan");
+    
+    private Integer code;
+    private String tag;
+    
+    ProductFeatureDict(Integer code,String tag){
+      this.code=code;
+      this.tag=tag;
+    }
+}

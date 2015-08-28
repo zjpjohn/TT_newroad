@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="orderUser">
+
+	<resultMap id="orderUser" type="com.newroad.tripmaster.dao.pojo.order.ProductOrderUser">
+		<result column="id" property="orderUserId" />
+		<result column="travelUserId" property="travelUserId" />
+		<result column="productOrderId" property="productOrderId" />
+		<result column="createTime" property="createTime" />
+	</resultMap>
+	
+	<insert id="createOrderUser" parameterType="com.newroad.tripmaster.dao.pojo.order.ProductOrderUser"
+		useGeneratedKeys="true" keyProperty="orderUserId">
+		insert into yoyo_order_user(travelUserId,productOrderId,createTime)
+		values(#{travelUserId}, #{productOrderId}, now())
+	</insert>
+	
+</mapper>   

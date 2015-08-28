@@ -1,0 +1,143 @@
+package com.newroad.tripmaster.service.scenic;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.newroad.tripmaster.constant.DataConstant;
+import com.newroad.tripmaster.constant.JSONConvertor;
+import com.newroad.tripmaster.dao.TripProductDao;
+import com.newroad.tripmaster.dao.maria.MariaDao;
+import com.newroad.tripmaster.dao.pojo.order.ProductOrder;
+import com.newroad.tripmaster.dao.pojo.trip.TripProduct;
+import com.newroad.tripmaster.service.ProductOrderServiceIf;
+import com.newroad.util.apiresult.ServiceResult;
+
+public class ProductOrderService implements ProductOrderServiceIf {
+
+  private static Logger logger = LoggerFactory.getLogger(ProductDesignService.class);
+
+  private TripProductDao tripProductDao;
+
+  private MariaDao mariaDao;
+
+  /**
+   * Create product order service
+   */
+  @Override
+  public ServiceResult<String> createProductOrder(ProductOrder productOrder) {
+    ServiceResult<String> result = new ServiceResult<String>();
+    Integer insertCount = mariaDao.insert("order.createOrder", productOrder);
+    logger.info("CreateProductOrder count:" + insertCount);
+
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put(DataConstant.PRODUCT_ORDER_ID, productOrder.getOrderId());
+    String jsonResult = JSONConvertor.getJSONInstance().writeValueAsString(map);
+    result.setBusinessResult(jsonResult);
+    return result;
+  }
+
+  @Override
+  public ServiceResult<String> updatetOrderPayStatus(Long productOrderId, String payStatus) {
+    ServiceResult<String> result = new ServiceResult<String>();
+    Map<String, Object> queryMap = new HashMap<String, Object>();
+    queryMap.put(DataConstant.PRODUCT_ORDER_ID, productOrderId);
+    queryMap.put(DataConstant.STATUS, 1);
+    queryMap.put(DataConstant.PAY_STATUS, payStatus);
+    Integer updateCount = mariaDao.update("order.updateOrderStatus", queryMap);
+    logger.info("UpdatetOrderPayStatus count:" + updateCount);
+
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put(DataConstant.PRODUCT_ORDER_ID, productOrderId);
+    map.put(DataConstant.STATUS, 1);
+    String jsonResult = JSONConvertor.getJSONInstance().writeValueAsString(map);
+    result.setBusinessResult(jsonResult);
+    return result;
+  }
+
+  @Override
+  public ServiceResult<String> systemUpdateProductOrder(Long productOrderId, Map<String, Object> updateActionMap) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public ServiceResult<String> viewProductOrder(Long productOrderId) {
+    ServiceResult<String> result = new ServiceResult<String>();
+    ProductOrder productOrder= mariaDao.selectOne("order.selectProductOrderById", productOrderId);
+    logger.info("viewProductOrder info:" + productOrder);
+    
+    List<?> orderUserList= mariaDao.selectList("travelUser.selectOrderUsersByOrderId", productOrderId);
+    logger.info("ProductOrderUserList:" + orderUserList);
+    productOrder.setOrderUserList(null);
+    
+    String tripProductId=productOrder.getTripProductId();
+    if(tripProductId!=null){
+      TripProduct tripProduct=tripProductDao.getTripProduct(tripProductId);
+      productOrder.setTripProduct(tripProduct);
+    }
+   
+    String jsonResult = JSONConvertor.getJSONInstance().writeValueAsString(productOrder);
+    result.setBusinessResult(jsonResult);
+    return result;
+  }
+  
+  @Override
+  public ServiceResult<String> listProductOrderByUser(Long userId,Integer authority) {
+    ServiceResult<String> result = new ServiceResult<String>();
+    Map<String, Object> queryMap = new HashMap<String, Object>();
+    queryMap.put("userId", userId);
+    queryMap.put(DataConstant.STATUS, 1);
+    List<ProductOrder> productOrderList= mariaDao.selectList("order.selectProductOrderByUser", queryMap);
+    logger.info("viewProductOrderByUser list:" + productOrderList);
+    
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put(DataConstant.PRODUCT_ORDER_LIST, productOrderList);
+    String jsonResult = JSONConvertor.getJSONInstance().writeValueAsString(map);
+    result.setBusinessResult(jsonResult);
+    return result;
+  }
+
+  @Override
+  public ServiceResult<String> updateUserProductOrder(Long productOrderId, Map<String, Object> updateActionMap) {
+    ServiceResult<String> result = new ServiceResult<String>();
+    Map<String, Object> queryMap = updateActionMap;
+    queryMap.put(DataConstant.PRODUCT_ORDER_ID, productOrderId);
+    queryMap.put(DataConstant.STATUS, 1);
+    Integer updateCount = mariaDao.update("order.updateOrderByUser", queryMap);
+    logger.info("UpdatetOrderByUser count:" + updateCount);
+
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put(DataConstant.PRODUCT_ORDER_ID, productOrderId);
+    map.put(DataConstant.STATUS, 1);
+    String jsonResult = JSONConvertor.getJSONInstance().writeValueAsString(map);
+    result.setBusinessResult(jsonResult);
+    return result;
+  }
+
+  @Override
+  public ServiceResult<String> updateProductOrderByLucker(Long productOrderId, Map<String, Object> updateActionMap) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public ServiceResult<String> cancelProductOrderByLucker(Long productOrderId) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public void setTripProductDao(TripProductDao tripProductDao) {
+    this.tripProductDao = tripProductDao;
+  }
+
+  public void setMariaDao(MariaDao mariaDao) {
+    this.mariaDao = mariaDao;
+  }
+
+
+
+}

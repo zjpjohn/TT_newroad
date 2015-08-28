@@ -1,0 +1,19 @@
+package com.newroad.tripmaster.service;
+
+import com.newroad.tripmaster.dao.pojo.order.ProductOrder;
+import com.newroad.util.apiresult.ServiceResult;
+
+public interface VoyagerServiceIf {
+   
+  public ServiceResult<String> listTripProduct(Integer cityCode);
+  
+  public ServiceResult<String> detailTripProduct(String productId);
+  
+  public ServiceResult<String> listUserTripProducts(Long luckerId);
+  
+  public ServiceResult<String> detailCustomizeRoute(String tripRouteId);
+  
+  public ServiceResult<String> customizeTripRoute(ProductOrder productOrder);
+  
+  public ServiceResult<String> recommendTripProduct(Long userId);
+}

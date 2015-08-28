@@ -1,0 +1,202 @@
+package com.newroad.tripmaster.service.scenic;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeMap;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.newroad.tripmaster.constant.JSONConvertor;
+import com.newroad.tripmaster.dao.CustomizeRouteDao;
+import com.newroad.tripmaster.dao.TravelPOIDao;
+import com.newroad.tripmaster.dao.TripNoticeDao;
+import com.newroad.tripmaster.dao.TripPOIRouteDao;
+import com.newroad.tripmaster.dao.TripProductDao;
+import com.newroad.tripmaster.dao.pojo.trip.CustomizeRoute;
+import com.newroad.tripmaster.dao.pojo.trip.POIRoute;
+import com.newroad.tripmaster.dao.pojo.trip.TravelPOI;
+import com.newroad.tripmaster.dao.pojo.trip.TripDayRoute;
+import com.newroad.tripmaster.dao.pojo.trip.TripNotice;
+import com.newroad.tripmaster.dao.pojo.trip.TripProduct;
+import com.newroad.tripmaster.service.VoyagerServiceIf;
+import com.newroad.util.apiresult.ReturnCode;
+import com.newroad.util.apiresult.ServiceResult;
+
+public class VoyagerService implements VoyagerServiceIf {
+
+  private static Logger logger = LoggerFactory.getLogger(VoyagerService.class);
+
+  private TripNoticeDao tripNoticeDao;
+
+  private TripProductDao tripProductDao;
+
+  private TripPOIRouteDao tripPOIRouteDao;
+  
+  private TravelPOIDao travelPOIDao;
+
+  private CustomizeRouteDao customizeRouteDao;
+
+  /**
+   * list trip products
+   */
+  public ServiceResult<String> listTripProduct(Integer cityCode) {
+    ServiceResult<String> result = new ServiceResult<String>();
+    String jsonResult = null;
+    List<TripProduct> tripProductList = tripProductDao.listTripProducts(cityCode);
+    Long productCount = tripProductDao.countTripProduct(null);
+    logger.info("Trip Product list:" + tripProductList);
+    if (tripProductList == null || tripProductList.size() == 0) {
+      result.setReturnCode(ReturnCode.SERVER_ERROR);
+      result.setReturnMessage("Fail to list trip product because ObjectId is null!");
+      return result;
+    }
+    jsonResult = JSONConvertor.transformTripProducts2JSON(tripProductList, productCount);
+    result.setBusinessResult(jsonResult);
+    return result;
+  }
+
+  public ServiceResult<String> detailTripProduct(String productId) {
+    ServiceResult<String> result = new ServiceResult<String>();
+    String jsonResult = null;
+    TripProduct tripProduct = tripProductDao.getTripProduct(productId);
+    if (tripProduct == null) {
+      result.setReturnCode(ReturnCode.SERVER_ERROR);
+      result.setReturnMessage("Fail to detail trip product because tripProduct is null!");
+      return result;
+    }
+
+    String tripRouteId = tripProduct.getTripRouteId();
+    CustomizeRoute customizeRoute = customizeRouteDao.getCustomizeRoute(tripRouteId);
+    if (customizeRoute != null) {
+      Map<String, TripDayRoute> dayRouteMap = groupDistinctTripDayRoute(tripRouteId);
+      customizeRoute.setDayRouteMap(dayRouteMap);
+      tripProduct.setTripRoute(customizeRoute);
+    }
+
+    TripNotice tripNotice = tripNoticeDao.getTripNoticeByProduct(productId);
+    tripProduct.setTripNotice(tripNotice);
+
+    jsonResult = JSONConvertor.getJSONInstance().writeValueAsString(tripProduct);
+    logger.info("Trip Product information:" + jsonResult);
+    result.setBusinessResult(jsonResult);
+    return result;
+  }
+
+  private Map<String, TripDayRoute> groupDistinctTripDayRoute(String tripRouteId) {
+    Map<String, TripDayRoute> dayRouteMap = new TreeMap<String, TripDayRoute>();
+    SortedSet<POIRoute> routeSet = tripPOIRouteDao.aggregateTripDayPOI(tripRouteId);
+    for (POIRoute route : routeSet) {
+      String routeDay = route.getRouteDay();
+      TripDayRoute currentDayRoute = dayRouteMap.get(routeDay);
+      List<POIRoute> currentList = null;
+      if (currentDayRoute == null) {
+        currentList = new ArrayList<POIRoute>();
+        currentList.add(route);
+        dayRouteMap.put(routeDay, new TripDayRoute(null, currentList));
+      } else {
+        currentList = currentDayRoute.getPoiRouteList();
+        currentList.add(route);
+        dayRouteMap.put(routeDay, currentDayRoute);
+      }
+    }
+    logger.info("groupDistinctTripDayRoute:" + dayRouteMap);
+    return dayRouteMap;
+  }
+
+  private Map<String, TripDayRoute> groupTripDayRoute(String tripRouteId) {
+    List<POIRoute> poiRouteList = tripPOIRouteDao.listTripPOIRoutes(tripRouteId);
+    Map<String, TripDayRoute> dayRouteMap = new TreeMap<String, TripDayRoute>();
+    for (POIRoute route : poiRouteList) {
+      String routeDay = route.getRouteDay();
+      TripDayRoute currentDayRoute = dayRouteMap.get(routeDay);
+      List<POIRoute> currentList = null;
+      if (currentDayRoute == null) {
+        currentList = new ArrayList<POIRoute>();
+        currentList.add(route);
+        dayRouteMap.put(routeDay, new TripDayRoute(null, currentList));
+      } else {
+        currentList = currentDayRoute.getPoiRouteList();
+        currentList.add(route);
+        dayRouteMap.put(routeDay, currentDayRoute);
+      }
+    }
+    logger.info("groupTripDayRoute:" + dayRouteMap);
+    return dayRouteMap;
+  }
+
+  /**
+   * trip route detail
+   */
+  public ServiceResult<String> detailCustomizeRoute(String tripRouteId) {
+    ServiceResult<String> result = new ServiceResult<String>();
+    String jsonResult = null;
+    CustomizeRoute customizeRoute = customizeRouteDao.getCustomizeRoute(tripRouteId);
+    if (customizeRoute == null) {
+      result.setReturnCode(ReturnCode.SERVER_ERROR);
+      result.setReturnMessage("Fail to detail customize route because customizeRoute is null!");
+      return result;
+    }
+
+    Map<String, TripDayRoute> dayRouteMap = groupTripDayRoute(tripRouteId);
+    customizeRoute.setDayRouteMap(dayRouteMap);
+    // customizeRoute.setPoiRouteList(poiRouteList);
+    jsonResult = JSONConvertor.getJSONInstance().writeValueAsString(customizeRoute);
+    logger.info("Customize Trip Product information:" + jsonResult);
+    result.setBusinessResult(jsonResult);
+    return result;
+  }
+  
+  @Override
+  public ServiceResult<String> detailTravelPOI(String travelPOIId) {
+    ServiceResult<String> result = new ServiceResult<String>();
+    String jsonResult = null;
+    TravelPOI travelPOI = travelPOIDao.getTravelPOI(travelPOIId);
+    if (travelPOI == null) {
+      result.setReturnCode(ReturnCode.SERVER_ERROR);
+      result.setReturnMessage("Fail to detail travel poi because travelPOI is null!");
+      return result;
+    }
+
+    jsonResult = JSONConvertor.getJSONInstance().writeValueAsString(travelPOI);
+    logger.info("Travel POI information:" + jsonResult);
+    result.setBusinessResult(jsonResult);
+    return result;
+  }
+  
+  @Override
+  public ServiceResult<String> detailTravelLucker(Long lucker) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public ServiceResult<String> recommendTripProduct(Long userId) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public void setTripNoticeDao(TripNoticeDao tripNoticeDao) {
+    this.tripNoticeDao = tripNoticeDao;
+  }
+
+  public void setTripProductDao(TripProductDao tripProductDao) {
+    this.tripProductDao = tripProductDao;
+  }
+
+  public void setTripPOIRouteDao(TripPOIRouteDao tripPOIRouteDao) {
+    this.tripPOIRouteDao = tripPOIRouteDao;
+  }
+  
+  public void setTravelPOIDao(TravelPOIDao travelPOIDao) {
+    this.travelPOIDao = travelPOIDao;
+  }
+
+  public void setCustomizeRouteDao(CustomizeRouteDao customizeRouteDao) {
+    this.customizeRouteDao = customizeRouteDao;
+  }
+
+
+
+}

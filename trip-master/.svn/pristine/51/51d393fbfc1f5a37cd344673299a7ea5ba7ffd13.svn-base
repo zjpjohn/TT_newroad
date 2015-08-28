@@ -1,0 +1,18 @@
+package com.newroad.tripmaster.service;
+
+import com.newroad.util.apiresult.ServiceResult;
+
+public interface VoyagerServiceIf {
+   
+  public ServiceResult<String> listTripProduct(String cityCode);
+  
+  public ServiceResult<String> detailTripProduct(String tripProductId);
+  
+  public ServiceResult<String> detailCustomizeRoute(String tripRouteId);
+  
+  public ServiceResult<String> detailCustomizeDayRoute(String tripRouteId,String routeDay);
+  
+  public ServiceResult<String> detailTravelPOI(String travelPOIId);
+  
+  public ServiceResult<String> recommendTripProduct(Long userId);
+}

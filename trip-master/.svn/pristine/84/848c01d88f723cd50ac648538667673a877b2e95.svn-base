@@ -1,0 +1,74 @@
+package com.newroad.tripmaster.service.scenic;
+
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.newroad.tripmaster.dao.TripProductDao;
+import com.newroad.tripmaster.dao.maria.MariaDao;
+import com.newroad.tripmaster.dao.pojo.order.ProductOrder;
+import com.newroad.tripmaster.service.ProductOrderServiceIf;
+import com.newroad.util.apiresult.ServiceResult;
+
+public class ProductOrderService implements ProductOrderServiceIf {
+
+  private static Logger logger = LoggerFactory.getLogger(ProductDesignService.class);
+
+  private TripProductDao tripProductDao;
+  
+  private MariaDao mariaDao;
+  
+  @Override
+  public ServiceResult<String> systemCreateProductOrder(ProductOrder productOrder) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public ServiceResult<String> systemUpdateProductOrder(String productOrderId, Map<String, Object> updateActionMap) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public ServiceResult<String> viewProductOrder(String productOrderId) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public ServiceResult<String> updateProductOrderByUser(String productOrderId, Map<String, Object> updateActionMap) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public ServiceResult<String> listLuckerProductOrder(Long luckerId) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public ServiceResult<String> updateProductOrderByLucker(String productOrderId, Map<String, Object> updateActionMap) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public ServiceResult<String> cancelLuckerProductOrder(Long luckerId) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public void setTripProductDao(TripProductDao tripProductDao) {
+    this.tripProductDao = tripProductDao;
+  }
+
+  public void setMariaDao(MariaDao mariaDao) {
+    this.mariaDao = mariaDao;
+  }
+
+
+
+}

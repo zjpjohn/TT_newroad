@@ -4,6 +4,7 @@
 	<comment></comment>
 	<projects>
 		<project>usersns</project>
+		<project>cachecluster</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

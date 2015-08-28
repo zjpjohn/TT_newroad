@@ -1,0 +1,20 @@
+package com.newroad.user.sns.service.login;
+
+import java.util.Map;
+
+import com.newroad.user.sns.model.login.LoginContext;
+
+
+public interface OpenAuthIf {
+  
+  public static String LOGINNAME = "loginName";//unique
+  
+  public static String ACCESS_TOKEN_KEY = "access_token";
+  
+  public static String OPEN_ID_KEY = "openid";
+
+  public LoginContext auth(Map<String, Object> para);
+  
+  public PostAuthResponse executePostAuthTask(LoginContext context) throws Exception;
+
+}

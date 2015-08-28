@@ -1,0 +1,13 @@
+package com.newroad.tripmaster.service;
+
+import com.newroad.tripmaster.dao.pojo.SimpleUserInfo;
+import com.newroad.util.apiresult.ServiceResult;
+
+
+public interface UserServiceIf {
+
+  
+  public SimpleUserInfo getUserInfo(Long userId);
+  
+  public ServiceResult<String> getLuckerUserInfo(Long userId);
+}

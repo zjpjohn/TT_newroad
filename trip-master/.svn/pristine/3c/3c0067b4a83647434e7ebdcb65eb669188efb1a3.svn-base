@@ -1,0 +1,45 @@
+package com.newroad.tripmaster.service.scenic;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+
+import com.newroad.tripmaster.constant.JSONConvertor;
+import com.newroad.tripmaster.dao.pojo.SimpleUserInfo;
+import com.newroad.util.http.HttpUtil;
+import com.newroad.util.http.HttpUtil.Method;
+
+
+public class UserService {
+
+  private static Logger logger = LoggerFactory.getLogger(UserService.class);
+
+  @Value("${ACCOUNT_HOST_URL}")
+  private String accountHostURL;
+
+  private static String USER_INFO_URL = "user/info";
+
+  public SimpleUserInfo getUserInfo(Long userId) {
+    SimpleUserInfo userInfo=null;
+    String url = accountHostURL + USER_INFO_URL;
+    Map<String, Object> requestMap = new HashMap<String, Object>(1);
+    requestMap.put("userID", userId);
+    String httpResult=null;
+    try {
+      StringBuffer sb = new StringBuffer();
+      String reqEntity = JSONConvertor.getJSONInstance().writeValueAsString(requestMap);
+      sb.append(reqEntity);
+      StringBuffer result = HttpUtil.httpCall(Method.post, url, null, sb, null);
+      httpResult=result.toString();
+    } catch (Exception e) {
+      logger.error("Fail to get user info", e);
+    }
+    if(httpResult!=null){
+      userInfo=JSONConvertor.getJSONInstance().fromJson(httpResult, SimpleUserInfo.class);
+    }
+    return userInfo;
+  }
+}

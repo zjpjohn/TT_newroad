@@ -1,0 +1,14 @@
+FILE_SYSTEM_HOST=http://localhost:8080/filecloud/v1/extend/
+USERSNS_HOST_URL=http://localhost:8080/usersns/v1/
+USERSNS_AUTHTOKEN_URL=http://localhost:8080/usersns/v1/auth/check
+
+#push
+PUSH_SID=10036
+PUSH_AUTH_CODE=1099127a-f9fb-95ee-af22-81526d4188bb
+PUSH_URL=http://push.lenovomm.com/pushgw/2.0/push
+
+system.env.isTest=true
+syn.lock.timeout=30
+system.monitor.nfs.location=c:/,d:/xx
+datafilter.xmlpath=/config/data-filter-config.xml
+

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="order">
+
+	<resultMap id="order"
+		type="com.newroad.tripmaster.dao.pojo.order.ProductOrder">
+		<result column="id" property="orderId" />
+		<result column="tripProductId" property="tripProductId" />
+		<result column="productName" property="productName" />
+		<result column="orderType" property="orderType" />
+		<result column="orderAmount" property="orderAmount" />
+		<result column="payAmount" property="payAmount" />
+		<result column="payKey" property="payKey" />
+		<result column="people" property="people" />
+		<result column="contactName" property="contactName" />
+		<result column="contactPhone" property="contactPhone" />
+		<result column="contactMail" property="contactMail" />
+		<result column="status" property="status" />
+		<result column="payStatus" property="payStatus" />
+		<result column="tripStartDate" property="tripStartDate" />
+		<result column="travelDays" property="travelDays" />
+		<result column="comment" property="comment" />
+		<result column="luckerId" property="luckerId" />
+		<result column="userId" property="userId" />
+		<result column="orderTime" property="orderTime" />
+		<result column="updateTime" property="updateTime" />
+	</resultMap>
+
+	<resultMap id="count" type="com.newroad.tripmaster.dao.pojo.Count">
+		<result column="status" property="status" />
+		<result column="count" property="count" />
+	</resultMap>
+
+	<select id="selectProductOrderList" parameterType="java.util.Map"
+		resultMap="order">
+		select * from yoyo_order
+		where 1=1 and status > 0
+		<if test="luckerId != null">and luckerId=#{luckerId}</if>
+		order by orderTime desc
+	</select>
+
+	<select id="countProductOrders" resultMap="count">
+		SELECT status,COUNT(id) as count
+		FROM yoyo_order WHERE status > 0
+		<if test="luckerId != null">AND luckerId=#{luckerId}</if>
+		GROUP BY status
+	</select>
+
+	<select id="selectProductOrderById" parameterType="java.util.Map"
+		resultMap="order">
+		select * from yoyo_order
+		where
+		status > 0 and id =
+		#{orderId}
+		<if test="luckerId != null">AND luckerId=#{luckerId}</if>
+		<if test="userId != null">AND userId=#{userId}</if>
+	</select>
+
+	<select id="selectProductOrderByUser" parameterType="java.util.Map"
+		resultMap="order">
+		select * from yoyo_order
+		where
+		status > 0 and userId =
+		#{userId}
+	</select>
+
+	<select id="selectProductOrderByStatus" parameterType="java.util.Map"
+		resultMap="order">
+		select * from yoyo_order
+		where status = #{status}
+		<if test="luckerId != null">and luckerId=#{luckerId}</if>
+		<if test="userId != null">and userId=#{userId}</if>
+	</select>
+
+	<insert id="createOrder" parameterType="com.newroad.tripmaster.dao.pojo.order.ProductOrder"
+		useGeneratedKeys="true" keyProperty="orderId">
+		insert into
+		yoyo_order(tripProductId,productName,orderType,orderAmount,payAmount,payKey,
+		people,
+		contactName, contactPhone, contactMail, status,
+		tripStartDate,
+		travelDays, comment, luckerId, userId, orderTime, updateTime)
+		values(#{tripProductId}, #{productName}, #{orderType}, #{orderAmount},
+		#{payAmount},#{payKey},
+		#{people}, #{contactName}, #{contactPhone},
+		#{contactMail}, 1,
+		#{tripStartDate}, #{travelDays}, #{comment}, #{luckerId},
+		#{userId}, now(),
+		now())
+	</insert>
+
+	<update id="updateOrderStatus" parameterType="java.util.Map">
+		update
+		yoyo_order
+		set
+		status = #{status},
+		updateTime = now()
+		where
+		id = #{orderId}
+	</update>
+
+	<update id="systemUpdateOrder" parameterType="java.util.Map">
+		update yoyo_order set
+		<if test="orderAmount != null"> orderAmount=#{orderAmount},</if>
+		<if test="payAmount != null"> payAmount=#{payAmount},</if>
+		<if test="people != null">people=#{people},</if>
+		<if test="tripStartDate != null"> tripStartDate=#{tripStartDate},</if>
+		<if test="travelDays != null">people=#{travelDays},</if>
+		<if test="status != null">status=#{status},</if>
+		<if test="payStatus != null">payStatus=#{payStatus},</if>
+		updateTime = now()
+		where id = #{orderId}
+	</update>
+
+	<update id="updateOrderByLucker" parameterType="java.util.Map">
+		update yoyo_order set
+		<if test="orderAmount != null"> orderAmount=#{orderAmount},</if>
+		<if test="payAmount != null"> payAmount=#{payAmount},</if>
+		<if test="people != null">people=#{people},</if>
+		<if test="tripStartDate != null"> tripStartDate=#{tripStartDate},</if>
+		<if test="travelDays != null">people=#{travelDays},</if>
+		<if test="status != null">status=#{status},</if>
+		updateTime = now()
+		where id = #{orderId}
+		and luckerId = #{luckerId}
+	</update>
+
+	<update id="updateOrderByUser" parameterType="java.util.Map">
+		update yoyo_order set
+		<if test="contactName != null">contactName=#{contactName},</if>
+		<if test="contactPhone != null">contactPhone=#{contactPhone},</if>
+		<if test="contactMail != null">contactMail=#{contactMail},</if>
+		updateTime = now()
+		where id = #{orderId}
+		and userId = #{userId}
+	</update>
+
+</mapper>   

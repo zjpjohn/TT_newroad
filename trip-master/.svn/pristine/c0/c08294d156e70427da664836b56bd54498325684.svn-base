@@ -1,0 +1,129 @@
+package com.newroad.tripmaster.controller;
+
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.newroad.tripmaster.constant.DataConstant;
+import com.newroad.tripmaster.constant.HttpConstant;
+import com.newroad.tripmaster.constant.JSONConvertor;
+import com.newroad.tripmaster.filter.TokenAuthFilter;
+import com.newroad.tripmaster.service.ProductOrderServiceIf;
+import com.newroad.util.StringHelper;
+import com.newroad.util.apiresult.ApiReturnObjectUtil;
+
+@Controller
+@RequestMapping("/v{apiVersion}/order")
+public class ProductOrderController {
+
+  private static Logger logger = LoggerFactory.getLogger(ProductOrderController.class);
+
+  @Autowired
+  private ProductOrderServiceIf productOrderService;
+
+
+  /**
+   * update designed trip product
+   */
+  @RequestMapping(value = "/new", method = RequestMethod.POST, produces = HttpConstant.CONTENT_TYPE_JSON)
+  public @ResponseBody
+  String createProductOrder(HttpServletRequest request, @PathVariable String apiVersion) throws Exception {
+    String reqParam = StringHelper.getRequestEntityString(request);
+    if (reqParam.indexOf("error") >= 0) {
+      return ApiReturnObjectUtil.getReturn400().toString();
+    }
+    @SuppressWarnings("unchecked")
+    Map<String, Object> map = JSONConvertor.getJSONInstance().fromJson(reqParam, Map.class);
+    Long productOrderId = (Long) map.get(DataConstant.PRODUCT_ORDER_ID);
+    return productOrderService.viewProductOrder(productOrderId).toString();
+  }
+
+
+  /**
+   * view product order
+   */
+  @RequestMapping(value = "/view/{productOrderId}", method = RequestMethod.GET, produces = HttpConstant.CONTENT_TYPE_JSON)
+  public @ResponseBody
+  String viewProductOrder(HttpServletRequest request, @PathVariable("productOrderId") Long productOrderId, @PathVariable String apiVersion)
+      throws Exception {
+    Long userId = TokenAuthFilter.getCurrentUser();
+    if (userId == null || userId == 0L) {
+      return ApiReturnObjectUtil.getReturn400().toString();
+    }
+    return productOrderService.viewProductOrder(productOrderId).toString();
+  }
+
+  /**
+   * view product order list by userId
+   */
+  @RequestMapping(value = "/list/{authority}", method = RequestMethod.GET, produces = HttpConstant.CONTENT_TYPE_JSON)
+  public @ResponseBody
+  String listProductOrder(HttpServletRequest request, @PathVariable("authority") Integer authority, @PathVariable String apiVersion)
+      throws Exception {
+    Long userId = TokenAuthFilter.getCurrentUser();
+    if (userId == null || userId == 0L) {
+      return ApiReturnObjectUtil.getReturn400().toString();
+    }
+    if (authority == null || authority == 0L) {
+      return ApiReturnObjectUtil.getReturn400().toString();
+    }
+    return productOrderService.listProductOrderByUser(userId, authority).toString();
+  }
+
+
+  /**
+   * update product order pay status
+   */
+  @RequestMapping(value = "/paystatus/{productOrderId}/{payStatus}", method = RequestMethod.PUT, produces = HttpConstant.CONTENT_TYPE_JSON)
+  public @ResponseBody
+  String updateOrderPayStatus(HttpServletRequest request, @PathVariable("productOrderId") Long productOrderId,
+      @PathVariable("payStatus") String payStatus, @PathVariable String apiVersion) throws Exception {
+    if (productOrderId == null || productOrderId == 0L) {
+      return ApiReturnObjectUtil.getReturn400().toString();
+    }
+    return productOrderService.updatetOrderPayStatus(productOrderId, payStatus).toString();
+  }
+
+  /**
+   * update designed trip product
+   */
+  @RequestMapping(value = "/{productOrderId}/{authority}", method = RequestMethod.POST, produces = HttpConstant.CONTENT_TYPE_JSON)
+  public @ResponseBody
+  String updateUserProductOrder(HttpServletRequest request, @PathVariable("productOrderId") Long productOrderId, @PathVariable("authority") Integer authority, @PathVariable String apiVersion) throws Exception {
+    String reqParam = StringHelper.getRequestEntityString(request);
+    if (reqParam.indexOf("error") >= 0) {
+      return ApiReturnObjectUtil.getReturn400().toString();
+    }
+    @SuppressWarnings("unchecked")
+    Map<String, Object> map = JSONConvertor.getJSONInstance().fromJson(reqParam, Map.class);
+    String serviceResult = null;
+    switch (authority) {
+      case 1:
+        serviceResult = productOrderService.updateUserProductOrder(productOrderId, map).toString();
+        break;
+      case 2:
+        serviceResult = productOrderService.updateProductOrderByLucker(productOrderId, map).toString();
+        break;
+    }
+    return serviceResult;
+  }
+
+  /**
+   * cancel product order 
+   */
+  @RequestMapping(value = "/{productOrderId}", method = RequestMethod.DELETE, produces = HttpConstant.CONTENT_TYPE_JSON)
+  public @ResponseBody
+  String cancelProductOrder(HttpServletRequest request, @PathVariable("productOrderId") Long productOrderId, @PathVariable String apiVersion) throws Exception {
+    return productOrderService.cancelProductOrderByLucker(productOrderId).toString();
+  }
+
+}
